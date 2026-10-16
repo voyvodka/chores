@@ -43,6 +43,53 @@ MAX_MESSAGES = 150
 FIRST_RUN_LOOKBACK = 24 * 3600
 CLAUDE_TIMEOUT = 600
 
+# What the report and the Chores summaries say, by config.json › language. Installs made before the
+# setting existed have no key and keep Turkish, which is what they always wrote.
+TEXTS = {
+    "en": {
+        "language": "English",
+        "rules": "# Rules (the user's own preferences)",
+        "mails": "# Mails (%d)",
+        "from": "From", "to": "To", "date": "Date", "subject": "Subject", "bulk": "bulk mail",
+        "title_action": "ACTION NEEDED — ", "title_none": "No action needed",
+        "n_urgent": "%d urgent", "n_week": "%d this week",
+        "reviewed": "%s · %s · %d mails reviewed (%s)",
+        "urgent": "Urgent", "week": "This week", "rest": "Everything else",
+        "in_spam": " · in spam", "via": " · to %s", "open": "Open in Gmail",
+        "rest_line": "%d mails need no action. %s",
+        "truncated": "The window held more mails; this run read only the first %d.",
+        "warn": "warn %d to act on: %s", "ok": "ok No action needed · %d mails", "no_mail": "ok No new mail",
+        "not_set_up": "fail Not set up: run templates/inbox-watch/setup.sh",
+        "auth_broken": "fail Gmail connection lost: run setup.sh --reconnect",
+        "gmail_down": "fail Could not reach Gmail, see the log",
+        "claude_down": "fail Claude did not answer (%d accounts tried), see the log",
+    },
+    "tr": {
+        "language": "Turkish",
+        "rules": "# Kurallar (kullanıcının kendi tercihleri)",
+        "mails": "# Mailler (%d)",
+        "from": "Kimden", "to": "Kime", "date": "Tarih", "subject": "Konu", "bulk": "toplu gönderim",
+        "title_action": "AKSİYON VAR — ", "title_none": "Aksiyon yok",
+        "n_urgent": "%d acil", "n_week": "%d bu hafta",
+        "reviewed": "%s · %s · %d mail incelendi (%s)",
+        "urgent": "Acil", "week": "Bu hafta", "rest": "Geri kalan",
+        "in_spam": " · spam klasöründe", "via": " · %s adresine", "open": "Gmail'de aç",
+        "rest_line": "%d mail aksiyon gerektirmiyor. %s",
+        "truncated": "Pencerede daha fazla mail vardı, bu çalışmada sadece ilk %d tanesi okundu.",
+        "warn": "warn %d aksiyon: %s", "ok": "ok Aksiyon yok · %d mail", "no_mail": "ok Yeni mail yok",
+        "not_set_up": "fail Kurulum yapılmamış: templates/inbox-watch/setup.sh çalıştır",
+        "auth_broken": "fail Gmail bağlantısı düştü: setup.sh --reconnect çalıştır",
+        "gmail_down": "fail Gmail'e ulaşılamadı, log'a bak",
+        "claude_down": "fail Claude yanıt vermedi (%d hesap denendi), log'a bak",
+    },
+}
+# Answers from a prompt.md older than the English levels.
+LEVELS = {"urgent": "urgent", "week": "week", "acil": "urgent", "hafta": "week"}
+
+
+def texts(config):
+    return TEXTS.get((config or {}).get("language", "tr"), TEXTS["en"])
+
 
 class AuthBroken(Exception):
     """The stored Google sign-in no longer works; only setup can fix it."""
@@ -122,7 +169,7 @@ def sign_in(client):
             self.send_response(200)
             self.send_header("Content-Type", "text/html; charset=utf-8")
             self.end_headers()
-            self.wfile.write("<p>Tamam, bu sekmeyi kapatıp terminale dönebilirsin.</p>".encode())
+            self.wfile.write("<p>Done. You can close this tab and go back to the terminal.</p>".encode())
 
         def log_message(self, *args):
             pass
@@ -142,7 +189,7 @@ def sign_in(client):
         "code_challenge_method": "S256",
         "state": state,
     })
-    print("Tarayıcıda Google izin sayfası açılıyor. Açılmazsa bu adresi kopyala:\n  " + url)
+    print("Opening the Google consent page in the browser. If it does not open, copy this address:\n  " + url)
     subprocess.run(["/usr/bin/open", url], check=False)
     deadline = time.time() + 300
     while "state" not in received and "error" not in received and time.time() < deadline:
@@ -150,9 +197,9 @@ def sign_in(client):
     server.server_close()
 
     if received.get("error"):
-        sys.exit("Google izni vermedi: " + received["error"])
+        sys.exit("Google did not grant access: " + received["error"])
     if received.get("state") != state or "code" not in received:
-        sys.exit("Google'dan geçerli bir yanıt gelmedi (5 dakika içinde izin verilmeli).")
+        sys.exit("No valid answer from Google (access has to be granted within 5 minutes).")
     tokens = http_json(client["token_uri"], {
         "grant_type": "authorization_code",
         "code": received["code"],
@@ -163,9 +210,9 @@ def sign_in(client):
     })
     # Granular consent lets the Gmail box be left unticked; the sign-in then "succeeds" uselessly.
     if SCOPE not in tokens.get("scope", "").split():
-        sys.exit("Gmail okuma izni verilmedi. İzin ekranında Gmail kutucuğunu işaretleyip tekrar dene.")
+        sys.exit("Gmail read access was not granted. Tick the Gmail box on the consent screen and try again.")
     if "refresh_token" not in tokens:
-        sys.exit("Google yenileme anahtarı vermedi. myaccount.google.com/permissions'tan uygulamayı kaldırıp tekrar dene.")
+        sys.exit("Google returned no refresh token. Remove the app at myaccount.google.com/permissions and try again.")
     return tokens
 
 
@@ -316,19 +363,19 @@ def fetch(email, since, max_chars):
 
 # --- Claude ---------------------------------------------------------------------------------------
 
-def claude_input(mails):
-    parts = ["# Kurallar (kullanıcının kendi tercihleri)", ""]
+def claude_input(mails, t):
+    parts = ["Report language: " + t["language"], "", t["rules"], ""]
     if os.path.exists(RULES_PATH):
         with open(RULES_PATH, encoding="utf-8") as f:
             parts.append(f.read().strip())
-    parts += ["", "# Mailler (%d)" % len(mails), ""]
+    parts += ["", t["mails"] % len(mails), ""]
     for m in mails:
-        flags = [f for f, on in (("SPAM", m["spam"]), ("toplu gönderim", m["bulk"])) if on]
+        flags = [f for f, on in (("SPAM", m["spam"]), (t["bulk"], m["bulk"])) if on]
         parts.append("<mail n=\"%d\">" % m["n"])
-        parts.append("Kimden: " + m["from"])
-        parts.append("Kime: " + m["to"])
-        parts.append("Tarih: " + m["date"] + (" · " + ", ".join(flags) if flags else ""))
-        parts.append("Konu: " + m["subject"])
+        parts.append(t["from"] + ": " + m["from"])
+        parts.append(t["to"] + ": " + m["to"])
+        parts.append(t["date"] + ": " + m["date"] + (" · " + ", ".join(flags) if flags else ""))
+        parts.append(t["subject"] + ": " + m["subject"])
         parts.append("")
         parts.append(m["body"].replace("</mail>", "</ mail>"))
         parts.append("</mail>")
@@ -350,15 +397,15 @@ def parse_answer(text, count):
     items = []
     for item in data["items"]:
         if (isinstance(item, dict) and isinstance(item.get("n"), int) and 1 <= item["n"] <= count
-                and item.get("level") in ("acil", "hafta")):
-            items.append({"n": item["n"], "level": item["level"], "why": str(item.get("why", "")).strip()})
+                and item.get("level") in LEVELS):
+            items.append({"n": item["n"], "level": LEVELS[item["level"]], "why": str(item.get("why", "")).strip()})
     return {"items": items, "skipped": str(data.get("skipped", "")).strip()}
 
 
 def classify(config, mails):
     with open(PROMPT_PATH, encoding="utf-8") as f:
         system = f.read()
-    stdin = claude_input(mails)
+    stdin = claude_input(mails, texts(config))
     tried = []
     for account in config["accounts"]:
         env = dict(os.environ)
@@ -378,7 +425,7 @@ def classify(config, mails):
             done = subprocess.run(cmd, input=stdin, capture_output=True, text=True,
                                   timeout=CLAUDE_TIMEOUT, env=env, cwd=JOB_DIR)
         except subprocess.TimeoutExpired:
-            tried.append(account["label"] + ": zaman aşımı")
+            tried.append(account["label"] + ": timed out")
             continue
         try:
             envelope = json.loads(done.stdout)
@@ -391,7 +438,7 @@ def classify(config, mails):
         # A usage-limit or login message can arrive as a successful run; the JSON shape is the test.
         answer = parse_answer(envelope.get("result") or "", len(mails))
         if answer is None:
-            tried.append(account["label"] + ": beklenen JSON gelmedi: " + (envelope.get("result") or "")[:160])
+            tried.append(account["label"] + ": no JSON answer: " + (envelope.get("result") or "")[:160])
             continue
         print("claude: ok account=%s cost=$%s" % (account["label"], envelope.get("total_cost_usd", "?")))
         answer["account"] = account["label"]
@@ -413,41 +460,41 @@ def gmail_link(email, thread_id):
     return "https://mail.google.com/mail/?authuser=%s#all/%s" % (urllib.parse.quote(email, safe="@"), thread_id)
 
 
-def render(email, mails, answer, truncated, window):
+def render(email, mails, answer, truncated, window, t):
     by_n = {m["n"]: m for m in mails}
-    urgent = [i for i in answer["items"] if i["level"] == "acil"]
-    week = [i for i in answer["items"] if i["level"] == "hafta"]
+    urgent = [i for i in answer["items"] if i["level"] == "urgent"]
+    week = [i for i in answer["items"] if i["level"] == "week"]
 
     if urgent or week:
         counts = ", ".join(filter(None, [
-            "%d acil" % len(urgent) if urgent else "",
-            "%d bu hafta" % len(week) if week else "",
+            t["n_urgent"] % len(urgent) if urgent else "",
+            t["n_week"] % len(week) if week else "",
         ]))
-        title = "AKSİYON VAR — " + counts
+        title = t["title_action"] + counts
     else:
-        title = "Aksiyon yok"
+        title = t["title_none"]
 
     lines = ["# " + title, "",
-             "%s · %s · %d mail incelendi (%s)" % (email, window, len(mails), answer["account"]), ""]
-    for heading, items in (("Acil", urgent), ("Bu hafta", week)):
+             t["reviewed"] % (email, window, len(mails), answer["account"]), ""]
+    for heading, items in ((t["urgent"], urgent), (t["week"], week)):
         if not items:
             continue
         lines += ["## " + heading, ""]
         for item in items:
             m = by_n[item["n"]]
             extra = "".join([
-                " · spam klasöründe" if m["spam"] else "",
-                " · " + m["via"] + " adresine" if m["via"] else "",
+                t["in_spam"] if m["spam"] else "",
+                t["via"] % m["via"] if m["via"] else "",
             ])
-            lines.append("- **%s** · %s%s  \n  %s [Gmail'de aç](%s)" % (
-                sender_name(m["from"]), m["subject"], extra, item["why"], gmail_link(email, m["threadId"])))
+            lines.append("- **%s** · %s%s  \n  %s [%s](%s)" % (
+                sender_name(m["from"]), m["subject"], extra, item["why"], t["open"], gmail_link(email, m["threadId"])))
         lines.append("")
-    lines += ["## Geri kalan", ""]
+    lines += ["## " + t["rest"], ""]
     rest = len(mails) - len(urgent) - len(week)
-    lines.append("%d mail aksiyon gerektirmiyor. %s" % (rest, answer["skipped"]))
+    lines.append(t["rest_line"] % (rest, answer["skipped"]))
     if truncated:
         lines.append("")
-        lines.append("Pencerede daha fazla mail vardı, bu çalışmada sadece ilk %d tanesi okundu." % len(mails))
+        lines.append(t["truncated"] % len(mails))
 
     if urgent or week:
         names = []
@@ -456,9 +503,9 @@ def render(email, mails, answer, truncated, window):
             if name not in names:
                 names.append(name)
         shown = ", ".join(names[:3]) + (" +%d" % (len(names) - 3) if len(names) > 3 else "")
-        summary = "warn %d aksiyon: %s" % (len(urgent) + len(week), shown)
+        summary = t["warn"] % (len(urgent) + len(week), shown)
     else:
-        summary = "ok Aksiyon yok · %d mail" % len(mails)
+        summary = t["ok"] % len(mails)
     return "\n".join(lines) + "\n", summary
 
 
@@ -492,8 +539,9 @@ def result(line, report=None):
 def cmd_run(_args):
     config = load_json(CONFIG_PATH, None)
     if not config:
-        result("fail Kurulum yapılmamış: templates/inbox-watch/setup.sh çalıştır")
+        result(TEXTS["en"]["not_set_up"])
         return 0
+    t = texts(config)
     started = int(time.time())
     since = load_json(STATE_PATH, {}).get("since") or started - FIRST_RUN_LOOKBACK
     window = "%s → %s" % (datetime.fromtimestamp(since).strftime("%d.%m %H:%M"),
@@ -502,29 +550,29 @@ def cmd_run(_args):
         mails, truncated = fetch(config["email"], since, int(config.get("maxChars", DEFAULT_MAX_CHARS)))
     except AuthBroken as err:
         print("gmail: auth broken: %s" % err)
-        result("fail Gmail bağlantısı düştü: setup.sh --reconnect çalıştır")
+        result(t["auth_broken"])
         return 0
     except (RuntimeError, OSError) as err:
         print("gmail: %s" % err)
-        result("fail Gmail'e ulaşılamadı, log'a bak")
+        result(t["gmail_down"])
         return 0
     print("gmail: %d mail since %s" % (len(mails), window))
 
     if not mails:
         write_json(STATE_PATH, {"since": started})
-        result("ok Yeni mail yok")
+        result(t["no_mail"])
         return 0
 
     answer = classify(config, mails)
     if answer is None:
         # State stays put, so the next run reads these mails again.
-        result("fail Claude yanıt vermedi (%d hesap denendi), log'a bak" % len(config["accounts"]))
+        result(t["claude_down"] % len(config["accounts"]))
         return 0
 
     report_dir = os.environ.get("CHORES_REPORT_DIR") or os.path.join(JOB_DIR, "reports")
     os.makedirs(report_dir, exist_ok=True)
     report = os.path.join(report_dir, datetime.fromtimestamp(started).strftime("%Y-%m-%d-%H%M") + ".md")
-    text, summary = render(config["email"], mails, answer, truncated, window)
+    text, summary = render(config["email"], mails, answer, truncated, window, t)
     with open(report, "w", encoding="utf-8") as f:
         f.write(text)
     write_json(STATE_PATH, {"since": started})
@@ -535,9 +583,9 @@ def cmd_run(_args):
 def cmd_fetch(args):
     config = load_json(CONFIG_PATH, {})
     mails, truncated = fetch(config["email"], args.since, int(config.get("maxChars", DEFAULT_MAX_CHARS)))
-    text = claude_input(mails)
+    text = claude_input(mails, texts(config))
     print(text)
-    print("-- %d mail, %d karakter%s" % (len(mails), len(text), ", pencere kesildi" if truncated else ""))
+    print("-- %d mails, %d characters%s" % (len(mails), len(text), ", window truncated" if truncated else ""))
     return 0
 
 
@@ -595,47 +643,47 @@ def cmd_setup(args):
     client_path = args.client
     if not client_path and not keychain_get("oauth-client"):
         newest = sorted(glob.glob(os.path.expanduser("~/Downloads/client_secret_*.json")), key=os.path.getmtime)
-        client_path = ask("Google OAuth istemci dosyası (client_secret_….json)%s: " % (
+        client_path = ask("Google OAuth client file (client_secret_….json)%s: " % (
             " [%s]" % newest[-1] if newest else ""), newest[-1] if newest else "")
     if client_path:
         with open(os.path.expanduser(client_path), encoding="utf-8") as f:
             client = json.load(f)
         if "installed" not in client:
-            sys.exit("Bu dosya bir 'Masaüstü uygulaması' istemcisi değil (içinde 'installed' yok).")
+            sys.exit("This file is not a 'Desktop app' client (it has no 'installed' key).")
         keychain_set("oauth-client", json.dumps(client))
-        print("OAuth istemcisi Keychain'e kaydedildi. İstersen dosyayı artık silebilirsin.")
+        print("OAuth client saved to the Keychain. You can delete the file now.")
 
     # 2. Gmail sign-in
     email = None
     if not args.reconnect and keychain_get("refresh-token"):
         try:
             email = http_json(GMAIL + "/profile", token=access_token())["emailAddress"]
-            print("Gmail zaten bağlı: " + email)
+            print("Gmail already connected: " + email)
         except AuthBroken:
-            print("Kayıtlı Gmail bağlantısı artık geçersiz, yeniden bağlanılıyor.")
+            print("The saved Gmail connection no longer works; connecting again.")
     if not email:
         tokens = sign_in(load_client())
         keychain_set("refresh-token", tokens["refresh_token"])
         email = http_json(GMAIL + "/profile", token=tokens["access_token"])["emailAddress"]
-        print("Gmail bağlandı: " + email)
+        print("Gmail connected: " + email)
 
     # 3. Claude
     claude = find_claude()
     if not claude:
-        sys.exit("claude bulunamadı. Claude Code'u kurup `claude` ile bir kez giriş yap.")
+        sys.exit("claude not found. Install Claude Code and sign in once with `claude`.")
     accounts = claude_accounts(claude)
     if not accounts:
-        sys.exit("Giriş yapılmış bir Claude hesabı yok. Önce `claude` ile giriş yap.")
+        sys.exit("No signed-in Claude account. Sign in with `claude` first.")
     if len(accounts) > 1:
-        print("\nGiriş yapılmış Claude hesapları (job bu sırayla dener, ilk yanıt veren kullanılır):")
+        print("\nSigned-in Claude accounts (the job tries them in this order and uses the first that answers):")
         for i, account in enumerate(accounts, 1):
             print("  %d) %s  %s" % (i, account["label"], account["who"]))
         default_order = " ".join(str(i) for i in range(1, len(accounts) + 1))
-        order = ask("Sıra (boşlukla ayır, istemediğini yazma) [%s]: " % default_order, default_order)
+        order = ask("Order (space-separated, leave out any you do not want) [%s]: " % default_order, default_order)
         try:
             picked = [accounts[int(x) - 1] for x in order.split()]
         except (ValueError, IndexError):
-            sys.exit("Geçersiz sıra: " + order)
+            sys.exit("Invalid order: " + order)
         accounts = picked or accounts
     for account in accounts:
         account.pop("who", None)
@@ -646,10 +694,11 @@ def cmd_setup(args):
         "accounts": accounts,
         "model": config.get("model", DEFAULT_MODEL),
         "maxChars": config.get("maxChars", DEFAULT_MAX_CHARS),
+        "language": config.get("language", "tr" if config.get("email") else "en"),
     })
     write_json(CONFIG_PATH, config)
-    print("\nAyarlar yazıldı: %s\n  Gmail: %s\n  Claude: %s\n  Model: %s" % (
-        CONFIG_PATH, email, " → ".join(a["label"] for a in accounts), config["model"]))
+    print("\nSettings written: %s\n  Gmail: %s\n  Claude: %s\n  Model: %s\n  Report language: %s" % (
+        CONFIG_PATH, email, " → ".join(a["label"] for a in accounts), config["model"], config["language"]))
     return 0
 
 

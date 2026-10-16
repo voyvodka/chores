@@ -1,77 +1,83 @@
-# inbox-watch — gelen kutusu özeti
+# inbox-watch — inbox summary
 
-Bir Gmail kutusuna gelen mailleri günde iki kez (09:00, 17:00) okur, yalnızca **gerçekten aksiyon
-gerektirenleri** Chores'ta raporlar. Aksiyon yoksa sessiz geçer; varsa bildirim gelir, raporda her
-mailin tek cümlelik "ne yapılmalı" açıklaması ve Gmail linki olur.
+Reads the mail that reaches a Gmail inbox twice a day (09:00, 17:00) and reports in Chores only the
+mails that **really need action**. With nothing to do it stays quiet; otherwise it notifies, and the
+report gives each mail a one-sentence "what to do" and a Gmail link.
 
-- **Gmail:** salt okunur izin. Mail silinmez, taşınmaz, okundu yapılmaz.
-- **Claude:** kendi Claude Code aboneliğin (`claude -p`), varsayılan model Haiku. Ek ücret yok,
-  kotadan çalışma başına kuruşluk bir pay gider. Claude'un hiçbir aracı yoktur; sadece mail metnini
-  okur ve sınıflandırır.
-- **Ne gönderilir:** son çalışmadan beri gelen maillerin başlıkları ve temizlenmiş metninin ilk
-  2000 karakteri. Gelen kutusu ve spam okunur, promosyon ve sosyal sekmeleri atlanır.
+- **Gmail:** read-only access. Nothing is deleted, moved or marked as read.
+- **Claude:** your own Claude Code subscription (`claude -p`), Haiku by default. No extra cost; each
+  run takes a tiny share of your quota. Claude has no tools at all; it only reads and classifies
+  the mail text.
+- **What is sent:** the headers and the first 2000 characters of the cleaned text of the mails that
+  arrived since the last run. Inbox and spam are read; the Promotions and Social tabs are skipped.
 
-## Kurulum (her kişi kendi Mac'inde)
+## Install (each person on their own Mac)
 
-Ön koşul: Chores kurulu (`scripts/install.sh`), Claude Code kurulu ve giriş yapılmış.
+Requires Chores (`scripts/install.sh`) and Claude Code, signed in.
 
-1. Ekipten `client_secret_….json` dosyasını al (aşağıdaki "Google tarafı" bir kez yapılır).
-2. Çalıştır:
+1. Get the `client_secret_….json` file from whoever set up the Google side (below; done once).
+2. Run:
 
    ```bash
    templates/inbox-watch/setup.sh --client ~/Downloads/client_secret_….json
    ```
 
-3. Tarayıcıda Google hesabını seç. **"Google bu uygulamayı doğrulamadı"** ekranı çıkar — bu
-   beklenen durum: *Gelişmiş › (uygulama adı)'na git* ile devam et. İzin ekranında **Gmail
-   kutucuğunun işaretli** olduğundan emin ol.
-4. Birden fazla Claude hesabın varsa setup hangi sırayla deneneceğini sorar.
+3. Pick the Google account in the browser. A **"Google hasn't verified this app"** screen appears;
+   that is expected: continue with *Advanced › Go to (app name)*. On the consent screen make sure
+   the **Gmail box is ticked**.
+4. With more than one Claude account signed in, setup asks in which order to try them.
 
-Bitti: Chores menüsünde "Gelen kutusu" görünür. Hemen denemek için `chores run inbox-watch`.
+Done: "Inbox" shows up in the Chores menu. To try it right away, `chores run inbox-watch`.
 
-Setup güvenle tekrar çalıştırılabilir (repo güncellenince de aynı komut): kendi ayarlarına
-(`config.json`), son okuma zamanına (`state.json`) ve kurallarına (`rules.md`) dokunmaz.
+Setup is safe to run again (also after pulling the repository): it leaves your settings
+(`config.json`), the last read time (`state.json`) and your rules (`rules.md`) alone.
 
-## Kendi kuralların
+## Your own rules
 
-`~/.local/share/chores/jobs/inbox-watch/rules.md` — düz Türkçe, satır başına bir tercih:
+`~/.local/share/chores/jobs/inbox-watch/rules.md`, plain language, one preference per line:
 
 ```
-- Yeni cihazdan giriş bildirimlerini yoksay, girişleri biz yapıyoruz.
-- X firmasının faturaları her zaman acil.
-- Y'nin haftalık raporlarını hiç gösterme.
+- Ignore sign-in notices from new devices; we sign in ourselves.
+- Invoices from X are always urgent.
+- Never show Y's weekly reports.
 ```
 
-Model ve metin sınırı `config.json` içinde: `"model": "haiku"` (kaçırdığı olursa `"sonnet"`),
-`"maxChars": 2000`.
+In `config.json`:
 
-## Sorun çıkarsa
+| Key | Default | |
+|---|---|---|
+| `language` | `en` | Report language: `en` or `tr`. Installs made before this setting keep `tr` |
+| `model` | `haiku` | `sonnet` if it misses things |
+| `maxChars` | `2000` | Characters of each mail's text sent to Claude |
 
-| Chores'ta görünen | Ne yapmalı |
+## When something goes wrong
+
+| Chores shows | What to do |
 |---|---|
-| Gmail bağlantısı düştü | `setup.sh --reconnect`. Kutunun şifresi değişince Google bütün bağlantıları kapatır; herkes bir kez yapmalı |
-| Gmail'e ulaşılamadı | Log'a bak. İnternet yoksa bir sonraki çalışma telafi eder; `403` ise Gmail API projede kapalı demektir |
-| Claude yanıt vermedi | Kota dolmuş ya da oturum düşmüş olabilir: `claude` ile giriş yap. O mailler bir sonraki çalışmada tekrar okunur |
-| Kurulum yapılmamış | `setup.sh` |
+| Gmail connection lost | `setup.sh --reconnect`. When the inbox password changes, Google closes every connection; everyone has to do this once |
+| Could not reach Gmail | Check the log. Without internet the next run catches up; `403` means the Gmail API is off in the project |
+| Claude did not answer | The quota may be used up or the session expired: sign in with `claude`. Those mails are read again on the next run |
+| Not set up | `setup.sh` |
 
-## Google tarafı (bir kez, kutunun sahibi hesapla)
+## The Google side (once, with the inbox's own account)
 
-Kutunun kendi Google hesabıyla <https://console.cloud.google.com> üzerinde:
+With the inbox's Google account, at <https://console.cloud.google.com>:
 
-1. **Proje oluştur** (ör. `inbox-watch`).
-2. **Gmail API'yi aç:** *API'ler ve Hizmetler › Kitaplık › Gmail API › Etkinleştir*.
-3. **Google Auth Platform › Branding:** uygulama adı ve destek e-postası. *Audience:* **External**.
-4. **Data Access › Add or Remove Scopes:** `https://www.googleapis.com/auth/gmail.readonly` ekle, kaydet.
-5. **Clients › Create Client:** tür **Desktop app**. Oluşturunca JSON'u **hemen indir** — Google
-   secret'ı yalnızca bu anda gösteriyor.
-6. **Audience › Publish app:** uygulamayı **In production** yap. Doğrulama başvurusu gerekmez.
-   *Testing*'de bırakılırsa bağlantı her 7 günde bir düşer.
+1. **Create a project** (e.g. `inbox-watch`).
+2. **Enable the Gmail API:** *APIs & Services › Library › Gmail API › Enable*.
+3. **Google Auth Platform › Branding:** app name and support email. *Audience:* **External**.
+4. **Data Access › Add or Remove Scopes:** add `https://www.googleapis.com/auth/gmail.readonly`, save.
+5. **Clients › Create Client:** type **Desktop app**. **Download the JSON right away**: Google shows
+   the secret only at this moment.
+6. **Audience › Publish app:** set the app to **In production**. No verification request is
+   needed. Left in *Testing*, the connection drops every 7 days.
 
-JSON dosyasını ekiple özelden paylaş; depoya koyma. Setup onu Keychain'e alır, sonra dosya silinebilir.
+Share the JSON file privately with the team; never commit it. Setup stores it in the Keychain, after
+which the file can be deleted.
 
-Bilinmesi gerekenler:
-- Doğrulanmamış uygulama ömür boyu en fazla 100 farklı Google hesabına izin verebilir. Aynı kutuyu
-  bağlayan her Mac tek hesap sayılır.
-- Kutu hesabında **Gelişmiş Koruma** açılırsa doğrulanmamış uygulamalar engellenir.
-- Mail içerikleri Claude hesabın üzerinden Anthropic'e gider. claude.ai › Ayarlar › Gizlilik'te
-  "modeli geliştirmeye yardım et" seçeneğini kapatmak isteyebilirsin.
+Worth knowing:
+- An unverified app can be granted access by at most 100 different Google accounts over its
+  lifetime. Every Mac connecting the same inbox counts as one account.
+- If **Advanced Protection** is turned on for the inbox account, unverified apps are blocked.
+- Mail contents go to Anthropic through your Claude account. You may want to turn off "Help improve
+  Claude" in claude.ai › Settings › Privacy.

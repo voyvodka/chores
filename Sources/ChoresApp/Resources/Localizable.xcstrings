@@ -651,6 +651,17 @@
         }
       }
     },
+    "Maintenance": {
+      "comment": "Job category: cleanup and upkeep",
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bakım"
+          }
+        }
+      }
+    },
     "Menu Preview": {
       "localizations": {
         "tr": {
@@ -952,6 +963,17 @@
       }
     },
     "Report": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Rapor"
+          }
+        }
+      }
+    },
+    "Reports": {
+      "comment": "Job category: jobs that produce reports",
       "localizations": {
         "tr": {
           "stringUnit": {
@@ -1271,6 +1293,17 @@
         }
       }
     },
+    "Sync": {
+      "comment": "Job category: sync and mirror",
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Senkron"
+          }
+        }
+      }
+    },
     "System": {
       "localizations": {
         "tr": {
@@ -1463,6 +1496,17 @@
           "stringUnit": {
             "state": "translated",
             "value": "Uyarı"
+          }
+        }
+      }
+    },
+    "Watch": {
+      "comment": "Job category: checks and watches",
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "İzleme"
           }
         }
       }
