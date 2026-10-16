@@ -103,12 +103,19 @@ import Testing
         #expect(isGone(pid))
     }
 
-    @Test func secondRunOfARunningJobIsRefusedAndRecordsNothing() async throws {
+    @Test func secondRunOfARunningJobIsRefusedAndRecordsNothing() throws {
         // Long enough that the second attempt cannot outwait it within the lock's patience on a slow runner.
         try makeJob("single", script: "sleep 5")
         let store = store
-        let first = Task.detached { try JobRunner(store: store).run(jobID: "single", trigger: .scheduled) }
-        let deadline = Date().addingTimeInterval(5)
+        nonisolated(unsafe) var firstResult: Result<RunRecord, Error>?
+        let firstDone = DispatchSemaphore(value: 0)
+        // A thread of its own, not a task: on a CI runner with few cores the other tests' blocking runs
+        // can hold every thread of the cooperative pool, and a detached task would not start in time.
+        Thread {
+            firstResult = Result { try JobRunner(store: store).run(jobID: "single", trigger: .scheduled) }
+            firstDone.signal()
+        }.start()
+        let deadline = Date().addingTimeInterval(20)
         while store.running("single") == nil, Date() < deadline { usleep(20_000) }
         #expect(store.running("single") != nil)
 
@@ -120,7 +127,8 @@ import Testing
         let logs = try FileManager.default.contentsOfDirectory(atPath: store.paths.logsDirectory("single").path)
         #expect(logs.count == 1)
 
-        let record = try await first.value
+        firstDone.wait()
+        let record = try #require(firstResult).get()
         #expect(record.outcome == .ok)
         #expect(store.runs("single").map(\.id) == [record.id])
         // The lock goes with the run.
