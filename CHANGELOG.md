@@ -19,6 +19,7 @@ update themselves to it.
 - The skill's job categories are English (`watch`, `maintenance`, `sync`, `report`) and the app shows them in its own language; any other category is shown as written.
 - `templates/inbox-watch` 1.2.0 is in English. Its report language is `config.json › language` (`en` or `tr`): new installs start in English, existing installs keep Turkish. Answers in the old Turkish level names are still understood.
 - CI also builds and tests with Xcode 27 on macOS 27; macOS 26 stays the required check.
+- A calendar time that comes while the job is still running is skipped, as before, and now leaves a `skipped` line in the scheduler log.
 
 ### Fixed
 
