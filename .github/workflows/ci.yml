@@ -21,3 +21,17 @@ jobs:
         run: swift build
       - name: Test
         run: swift test
+
+  # The newest SDK, on the macOS the owner's Mac already runs. Not a required check: macos-26 stays
+  # the gate because it is the oldest supported system.
+  build-test-27:
+    runs-on: xcode-27
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v5
+      - name: Toolchain
+        run: sw_vers && swift --version
+      - name: Build
+        run: swift build
+      - name: Test
+        run: swift test
