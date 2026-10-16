@@ -57,21 +57,21 @@ import Testing
     }
 
     @Test func timeoutKillsTheJob() throws {
-        try makeJob("slow", script: "sleep 30", timeout: 1)
+        try makeJob("slow", script: "sleep 60", timeout: 1)
         let started = Date()
         let record = try JobRunner(store: store).run(jobID: "slow", trigger: .manual)
         #expect(record.timedOut == true)
         #expect(record.outcome == .fail)
-        // Well under the script's 30 s; the margin absorbs a loaded CI runner.
-        #expect(Date().timeIntervalSince(started) < 20)
+        // Well under the script's 60 s; a loaded CI runner has stalled these runs by 10–15 s.
+        #expect(Date().timeIntervalSince(started) < 40)
     }
 
     @Test func timeoutKillsAJobThatIgnoresSIGTERM() throws {
-        try makeJob("stubborn", script: "trap '' TERM; sleep 30", timeout: 1)
+        try makeJob("stubborn", script: "trap '' TERM; sleep 60", timeout: 1)
         let started = Date()
         let record = try JobRunner(store: store).run(jobID: "stubborn", trigger: .manual)
         #expect(record.timedOut == true)
-        #expect(Date().timeIntervalSince(started) < 1 + JobRunner.timeoutGrace + 14)
+        #expect(Date().timeIntervalSince(started) < 40)
     }
 
     func isGone(_ pid: pid_t) -> Bool {
@@ -94,10 +94,10 @@ import Testing
     }
 
     @Test func backgroundProcessIgnoringSIGTERMIsKilled() throws {
-        try makeJob("stubborn-child", script: "(trap '' TERM; sleep 30) & echo $! > child.pid")
+        try makeJob("stubborn-child", script: "(trap '' TERM; sleep 60) & echo $! > child.pid")
         let started = Date()
         _ = try JobRunner(store: store).run(jobID: "stubborn-child", trigger: .manual)
-        #expect(Date().timeIntervalSince(started) < JobRunner.timeoutGrace + 14)
+        #expect(Date().timeIntervalSince(started) < 40)
         let pid = try #require(pid_t(String(decoding: Data(contentsOf: store.paths.jobDirectory("stubborn-child")
             .appending(path: "child.pid")), as: UTF8.self).trimmingCharacters(in: .whitespacesAndNewlines)))
         #expect(isGone(pid))

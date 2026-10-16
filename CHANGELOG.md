@@ -7,6 +7,12 @@ update themselves to it.
 
 ## [Unreleased]
 
+## [1.0.1] - 2026-10-16
+
+### Fixed
+
+- A self-update now quits the running app before installing and reopens the new version. `install.sh` runs as a descendant of the app during an update, and `pkill` leaves its own ancestors alone, so the old app kept running and the next daily check would have installed the same release again.
+
 ## [1.0.0] - 2026-10-16
 
 The first public release.
@@ -29,5 +35,6 @@ The first public release.
 - `templates/inbox-watch`: a shareable job that reads a Gmail inbox twice a day (read-only OAuth, secrets in the Keychain) and has `claude -p` report only the mails that need action, with Gmail links; `setup.sh` installs or updates it on any Mac running Chores.
 - `ChoresApp --snapshot` renders the menu and window off-screen with a layout report; `--show-menu-preview`, `--show-window` and `--show-settings` open them from a debug build.
 
-[Unreleased]: https://github.com/voyvodka/chores/compare/v1.0.0...HEAD
+[Unreleased]: https://github.com/voyvodka/chores/compare/v1.0.1...HEAD
+[1.0.1]: https://github.com/voyvodka/chores/compare/v1.0.0...v1.0.1
 [1.0.0]: https://github.com/voyvodka/chores/releases/tag/v1.0.0
