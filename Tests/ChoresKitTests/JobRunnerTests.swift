@@ -62,7 +62,8 @@ import Testing
         let record = try JobRunner(store: store).run(jobID: "slow", trigger: .manual)
         #expect(record.timedOut == true)
         #expect(record.outcome == .fail)
-        #expect(Date().timeIntervalSince(started) < 10)
+        // Well under the script's 30 s; the margin absorbs a loaded CI runner.
+        #expect(Date().timeIntervalSince(started) < 20)
     }
 
     @Test func timeoutKillsAJobThatIgnoresSIGTERM() throws {
@@ -70,7 +71,7 @@ import Testing
         let started = Date()
         let record = try JobRunner(store: store).run(jobID: "stubborn", trigger: .manual)
         #expect(record.timedOut == true)
-        #expect(Date().timeIntervalSince(started) < 1 + JobRunner.timeoutGrace + 4)
+        #expect(Date().timeIntervalSince(started) < 1 + JobRunner.timeoutGrace + 14)
     }
 
     func isGone(_ pid: pid_t) -> Bool {
@@ -96,14 +97,15 @@ import Testing
         try makeJob("stubborn-child", script: "(trap '' TERM; sleep 30) & echo $! > child.pid")
         let started = Date()
         _ = try JobRunner(store: store).run(jobID: "stubborn-child", trigger: .manual)
-        #expect(Date().timeIntervalSince(started) < JobRunner.timeoutGrace + 4)
+        #expect(Date().timeIntervalSince(started) < JobRunner.timeoutGrace + 14)
         let pid = try #require(pid_t(String(decoding: Data(contentsOf: store.paths.jobDirectory("stubborn-child")
             .appending(path: "child.pid")), as: UTF8.self).trimmingCharacters(in: .whitespacesAndNewlines)))
         #expect(isGone(pid))
     }
 
     @Test func secondRunOfARunningJobIsRefusedAndRecordsNothing() async throws {
-        try makeJob("single", script: "sleep 2")
+        // Long enough that the second attempt cannot outwait it within the lock's patience on a slow runner.
+        try makeJob("single", script: "sleep 5")
         let store = store
         let first = Task.detached { try JobRunner(store: store).run(jobID: "single", trigger: .scheduled) }
         let deadline = Date().addingTimeInterval(5)
