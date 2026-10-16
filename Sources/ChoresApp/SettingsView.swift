@@ -25,8 +25,9 @@ struct SettingsView: View {
         }
         .frame(width: 500)
         .fixedSize(horizontal: false, vertical: true)
-        // The window fits each tab, but a grouped Form still rubber-bands and flashes a scroller.
-        .scrollBounceBehavior(.basedOnSize)
+        // The window fits each tab, but rounds its height down: a wrapped footer left the Form a
+        // fraction of a point taller, enough to scroll and switch on the toolbar's edge effect.
+        .scrollDisabled(true)
         .onAppear {
             guard !JobsModel.isSnapshot else { return }
             model.refreshLoginItemStatus()
