@@ -279,6 +279,20 @@ import Testing
         #expect(stats.failures == 0)
     }
 
+    @Test func averageLeavesOutTimeAsleep() throws {
+        var slept = run(.ok, 3_610)
+        slept.asleepSeconds = 3_600
+        #expect(slept.awakeSeconds == 10)
+        #expect(JobStats(runs: [slept, run(.ok, 20)]).averageDuration == 15)
+
+        let old = #"{"id":"r","startedAt":"2026-09-24T09:00:00Z","endedAt":"2026-09-24T09:00:05Z","durationSeconds":5,"exitCode":0,"outcome":"ok","log":"logs/r.log","trigger":"scheduled"}"#
+        let decoder = JSONDecoder()
+        decoder.dateDecodingStrategy = .iso8601
+        let record = try decoder.decode(RunRecord.self, from: Data(old.utf8))
+        #expect(record.asleepSeconds == nil)
+        #expect(record.awakeSeconds == 5)
+    }
+
     @Test func emptyHistory() {
         let stats = JobStats(runs: [])
         #expect(stats.successRate == nil)

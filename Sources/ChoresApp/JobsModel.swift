@@ -240,7 +240,7 @@ extension JobsModel {
         for (job, run) in RunNotifier.runsToNotify(previous: knownLastRuns, current: snapshots, since: startedAt) {
             let content = UNMutableNotificationContent()
             content.title = "\(job.title) · \(run.outcome.label)"
-            content.body = run.summary ?? String(localized: "Finished in \(Fmt.duration(run.durationSeconds))")
+            content.body = run.summary ?? String(localized: "Finished in \(Fmt.duration(run.awakeSeconds))")
             content.userInfo = ["jobID": job.id, "runID": run.id]
             if run.outcome != .ok { content.sound = .default }
             UNUserNotificationCenter.current().add(UNNotificationRequest(identifier: run.id, content: content, trigger: nil))

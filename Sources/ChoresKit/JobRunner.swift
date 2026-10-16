@@ -78,6 +78,9 @@ public struct JobRunner: Sendable {
         }
         defer { forwarder?.stop() }
 
+        let sleep = SleepMeter()
+        let assertion = IdleSleepAssertion(jobID: jobID, limit: TimeInterval(job.timeoutSeconds ?? 3600) + 60)
+        defer { assertion.release() }
         try process.run()
         // The job leads its own process group, so signalling -pid reaches everything it started.
         let group = -process.processIdentifier
@@ -92,6 +95,7 @@ public struct JobRunner: Sendable {
         onStart?(runID)
 
         if let timeout = job.timeoutSeconds {
+            // DispatchTime stops while the Mac sleeps, so the timeout counts awake time, as `awakeSeconds` does.
             DispatchQueue.global().asyncAfter(deadline: .now() + .seconds(timeout)) { [process] in
                 guard process.isRunning else { return }
                 timedOut.set(1)
@@ -131,7 +135,7 @@ public struct JobRunner: Sendable {
                                exitCode: process.terminationStatus, signal: signal ? true : nil,
                                timedOut: timedOut.value != nil ? true : nil, outcome: outcome, summary: summary,
                                report: report, log: logRelative, trigger: trigger, jobVersion: job.version,
-                               stoppedByUser: byUser ? true : nil)
+                               stoppedByUser: byUser ? true : nil, asleepSeconds: sleep.asleepSeconds)
         try store.append(record, to: jobID)
         store.prune(jobID)
         return record

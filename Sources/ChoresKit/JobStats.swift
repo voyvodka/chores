@@ -17,7 +17,7 @@ public struct JobStats: Equatable, Sendable {
             averageDuration = nil
         } else {
             successRate = Double(recent.filter { $0.outcome == .ok }.count) / Double(recent.count)
-            averageDuration = recent.map(\.durationSeconds).reduce(0, +) / Double(recent.count)
+            averageDuration = recent.map(\.awakeSeconds).reduce(0, +) / Double(recent.count)
         }
     }
 
