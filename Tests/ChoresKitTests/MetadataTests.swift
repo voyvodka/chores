@@ -3,11 +3,12 @@ import Testing
 @testable import ChoresKit
 
 @Suite struct MetadataTests {
+    let temp: TempRoot
     let store: JobStore
 
     init() throws {
-        let root = FileManager.default.temporaryDirectory.appending(path: "chores-meta-\(UUID().uuidString)")
-        try FileManager.default.createDirectory(at: root, withIntermediateDirectories: true)
+        temp = try TempRoot("chores-meta-")
+        let root = temp.url
         store = JobStore(paths: ChoresPaths.current(environment: ["CHORES_HOME": root.path]))
     }
 

@@ -3,12 +3,13 @@ import Testing
 @testable import ChoresKit
 
 @Suite struct DeleteRunsTests {
+    let temp: TempRoot
     let store: JobStore
     let outside: URL
 
     init() throws {
-        let root = FileManager.default.temporaryDirectory.appending(path: "chores-delete-\(UUID().uuidString)")
-        try FileManager.default.createDirectory(at: root, withIntermediateDirectories: true)
+        temp = try TempRoot("chores-delete-")
+        let root = temp.url
         store = JobStore(paths: ChoresPaths.current(environment: ["CHORES_HOME": root.path]))
         outside = root.appending(path: "elsewhere")
         try FileManager.default.createDirectory(at: outside, withIntermediateDirectories: true)

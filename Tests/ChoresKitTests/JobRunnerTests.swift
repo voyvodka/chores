@@ -3,12 +3,13 @@ import Testing
 @testable import ChoresKit
 
 @Suite struct JobRunnerTests {
+    let temp: TempRoot
     let root: URL
     let store: JobStore
 
     init() throws {
-        root = FileManager.default.temporaryDirectory.appending(path: "chores-tests-\(UUID().uuidString)")
-        try FileManager.default.createDirectory(at: root, withIntermediateDirectories: true)
+        temp = try TempRoot("chores-tests-")
+        root = temp.url
         store = JobStore(paths: ChoresPaths.current(environment: ["CHORES_HOME": root.path]))
     }
 
@@ -221,6 +222,7 @@ import Testing
 @Suite struct PruneTests {
     @Test func keepsNewestRunsAndDeletesTheirDroppedLogs() throws {
         let root = FileManager.default.temporaryDirectory.appending(path: "chores-prune-\(UUID().uuidString)")
+        defer { try? FileManager.default.removeItem(at: root) }
         let store = JobStore(paths: ChoresPaths.current(environment: ["CHORES_HOME": root.path]))
         try store.save(JobDefinition(id: "busy", title: "busy", summary: "", command: ["true"], schedule: .manual))
         try FileManager.default.createDirectory(at: store.paths.logsDirectory("busy"), withIntermediateDirectories: true)

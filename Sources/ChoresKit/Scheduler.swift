@@ -84,6 +84,7 @@ public enum Scheduler {
             // Disabled time is skipped, not caught up: turning a job back on must not fire a backlog.
             if input.disabled.contains(id) {
                 state.lastSeenDisabled[id] = now
+                if job.runAtLoad == true { state.loadFiredBoot[id] = boot }
                 continue
             }
             guard !input.running.contains(id) else { continue }

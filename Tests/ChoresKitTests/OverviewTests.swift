@@ -50,11 +50,12 @@ import Testing
 }
 
 @Suite struct OverviewTests {
+    let temp: TempRoot
     let store: JobStore
 
     init() throws {
-        let root = FileManager.default.temporaryDirectory.appending(path: "chores-overview-\(UUID().uuidString)")
-        try FileManager.default.createDirectory(at: root, withIntermediateDirectories: true)
+        temp = try TempRoot("chores-overview-")
+        let root = temp.url
         store = JobStore(paths: ChoresPaths.current(environment: ["CHORES_HOME": root.path]))
     }
 
@@ -107,6 +108,7 @@ import Testing
 
     @Test func jobWithAnOldLaunchAgentIsNotShownAsScheduled() throws {
         let root = FileManager.default.temporaryDirectory.appending(path: "chores-legacy-\(UUID().uuidString)")
+        defer { try? FileManager.default.removeItem(at: root) }
         let agents = root.appending(path: "LaunchAgents")
         let store = JobStore(paths: ChoresPaths(root: root, labelPrefix: ChoresPaths.testLabelPrefix,
                                                 launchAgentsDirectory: agents,

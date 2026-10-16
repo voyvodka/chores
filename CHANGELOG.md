@@ -23,6 +23,8 @@ update themselves to it.
 
 - A job without runs no longer shows its header in the middle of the window.
 - Settings tabs no longer rubber-band and flash a scroller when their content fits the window.
+- A `runAtLoad` job that was off when Chores started no longer runs the moment it is turned back on in the same boot; like any other run missed while off, it waits for the next boot.
+- The tests remove the temporary job folders they create.
 
 ## [1.0.1] - 2026-10-16
 
