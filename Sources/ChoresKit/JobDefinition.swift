@@ -25,7 +25,7 @@ public struct JobDefinition: Codable, Equatable, Sendable {
     public var version: String?
     /// Newest first.
     public var changelog: [ChangelogEntry]?
-    /// Groups jobs in the app, e.g. "izleme", "bakım", "senkron".
+    /// Groups jobs in the app: "watch", "maintenance", "sync", "report", or a word of the job's own.
     public var category: String?
     /// Commands the job needs on `PATH` (or absolute paths); missing ones make the job a warning.
     public var requires: [String]?

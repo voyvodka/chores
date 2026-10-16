@@ -8,8 +8,8 @@ set -euo pipefail
 
 here=$(cd "$(dirname "$0")" && pwd)
 chores=$(command -v chores || echo "$HOME/.local/bin/chores")
-[[ -x "$chores" ]] || { echo "chores bulunamadı. Önce Chores deposunda scripts/install.sh çalıştır." >&2; exit 1; }
-[[ -x /usr/bin/python3 ]] || { echo "/usr/bin/python3 yok. xcode-select --install ile Command Line Tools kur." >&2; exit 1; }
+[[ -x "$chores" ]] || { echo "chores not found. Run scripts/install.sh in the Chores repository first." >&2; exit 1; }
+[[ -x /usr/bin/python3 ]] || { echo "/usr/bin/python3 is missing. Install the Command Line Tools with xcode-select --install." >&2; exit 1; }
 
 jobs_dir=$("$chores" paths | awk '/^jobs:/ {print $2}')
 dest="$jobs_dir/inbox-watch"
@@ -18,12 +18,12 @@ for f in inbox.py prompt.md job.json; do
   command cp -f "$here/$f" "$dest/$f"
 done
 [[ -e "$dest/rules.md" ]] || command cp -f "$here/rules.md" "$dest/rules.md"
-echo "Job dosyaları: $dest"
+echo "Job files: $dest"
 
 /usr/bin/python3 "$dest/inbox.py" setup "$@"
 
 "$chores" validate inbox-watch
 "$chores" install inbox-watch
 echo
-echo "Kuruldu. Chores menüsünde \"Gelen kutusu\" olarak görünür; her gün 09:00 ve 17:00'de çalışır."
-echo "Şimdi denemek için: chores run inbox-watch   (son 24 saatin maillerini okur, biraz Claude kotası harcar)"
+echo "Installed. It shows up in the Chores menu as \"Inbox\" and runs every day at 09:00 and 17:00."
+echo "To try it now: chores run inbox-watch   (reads the last 24 hours of mail and spends a little Claude quota)"

@@ -31,7 +31,7 @@ import Testing
         #expect(job.validationWarnings().contains { $0.contains("no version") })
         job.version = "2.0.0"
         job.changelog = [ChangelogEntry(version: "1.0.0", notes: ["old"])]
-        job.category = "bakım"
+        job.category = "maintenance"
         #expect(job.validationWarnings() == ["changelog has no entry for version 2.0.0"])
     }
 
@@ -65,7 +65,7 @@ import Testing
                                                   category: category),
                         definitionError: nil, runs: [], running: nil, loadState: .loaded, nextRun: nil)
         }
-        let groups = JobOverview.grouped([snap("a", nil), snap("b", "senkron"), snap("c", "İzleme"), snap("d", "bakım")])
-        #expect(groups.map(\.category) == ["bakım", "izleme", "senkron", JobOverview.uncategorized])
+        let groups = JobOverview.grouped([snap("a", nil), snap("b", "sync"), snap("c", "Watch"), snap("d", "maintenance")])
+        #expect(groups.map(\.category) == ["maintenance", "sync", "watch", JobOverview.uncategorized])
     }
 }

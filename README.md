@@ -110,7 +110,7 @@ checks now and shows the log. Your own checkout is never touched; to run unrelea
 [`templates/`](templates) holds jobs meant for more than one Mac, each with its own `setup.sh`:
 
 - [`inbox-watch`](templates/inbox-watch) reads a Gmail inbox twice a day (read-only) and has
-  Claude report only the mails that need action. Its documentation and prompt are in Turkish.
+  Claude report only the mails that need action, in English or Turkish.
 
 ## Uninstall
 

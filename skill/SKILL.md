@@ -57,7 +57,7 @@ The runner creates `logs/`, `runs.jsonl` and the report folder itself.
   "changelog": [
     { "version": "1.0.0", "date": "2026-09-24", "notes": ["First version: daily check, one report per day."] }
   ],
-  "category": "izleme",
+  "category": "watch",
   "requires": ["claude", "gh", "jq"],
   "project": "~/Projects/my-app",
   "links": [
@@ -84,7 +84,7 @@ The runner creates `logs/`, `runs.jsonl` and the report folder itself.
 | `createdBy`, `createdAt` | no | `"claude-code"` and the real current time from `date -u +%Y-%m-%dT%H:%M:%SZ` — never an invented one |
 | `version` | yes in practice | The job's own version (`1.0.0`). `chores validate` warns without it. Every run records it |
 | `changelog` | yes in practice | Newest first: `{version, date "YYYY-MM-DD", notes: [..]}`. Must contain an entry for `version` |
-| `category` | yes in practice | Groups jobs in the app. Use one of `izleme` (checks and watches), `bakım` (cleanup, maintenance), `senkron` (sync, mirror), `rapor` (produces reports), or a new short lowercase word only if none fits |
+| `category` | yes in practice | Groups jobs in the app. Use one of `watch` (checks and watches), `maintenance` (cleanup, upkeep), `sync` (sync, mirror) or `report` (produces reports); the app shows these four in its own language. Use a new short lowercase English word only if none fits |
 | `requires` | no | Commands the job needs, as names on the job's `PATH` or absolute paths. Missing ones make the job show a warning |
 | `project` | no | Folder of the project the job serves (`~` allowed) |
 | `links` | no | `{title, url}` — web pages, repos, or local folders (`~` allowed) the user may want to open |

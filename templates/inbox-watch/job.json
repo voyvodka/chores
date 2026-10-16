@@ -1,51 +1,86 @@
 {
   "id": "inbox-watch",
-  "title": "Gelen kutusu",
-  "summary": "Bağlı Gmail kutusuna son çalışmadan beri gelen mailleri claude -p ile okur ve yalnızca gerçekten aksiyon gerektirenleri Gmail linkleriyle raporlar.",
-  "command": ["/usr/bin/python3", "inbox.py", "run"],
+  "title": "Inbox",
+  "summary": "Reads the mails that reached the connected Gmail inbox since the last run with claude -p and reports only the ones that really need action, with Gmail links.",
+  "command": [
+    "/usr/bin/python3",
+    "inbox.py",
+    "run"
+  ],
   "schedule": {
     "calendar": [
-      { "hour": 9, "minute": 0 },
-      { "hour": 17, "minute": 0 }
+      {
+        "hour": 9,
+        "minute": 0
+      },
+      {
+        "hour": 17,
+        "minute": 0
+      }
     ]
   },
   "timeoutSeconds": 1800,
   "reportDirectory": "reports",
   "notify": "problems",
-  "permissions": "Gmail: yalnızca okuma (gmail.readonly); mail silmez, taşımaz, okundu yapmaz. Claude: hiçbir aracı yok (--tools \"\"), safe mode'da çalışır; sadece stdin'den verilen mail metnini sınıflandırır. Google anahtarları Keychain'de (chores.inbox-watch).",
+  "permissions": "Gmail: read only (gmail.readonly); never deletes, moves or marks mails as read. Claude: no tools at all (--tools \"\"), runs in safe mode and only classifies the mail text given on stdin. Google keys live in the Keychain (chores.inbox-watch).",
   "notes": [
-    "Kurulum ve yeniden bağlanma: Chores deposunda templates/inbox-watch/setup.sh (Gmail düştüyse: setup.sh --reconnect).",
-    "Aksiyon yoksa sonuç ok ve bildirim gelmez; aksiyon varsa warn ve bildirim gelir. Rapor: reports/YYYY-MM-DD-HHMM.md.",
-    "Her çalışma son başarılı çalışmadan beri gelenleri okur (ilk çalışma son 24 saat). Gelen kutusu ve spam okunur; promosyon ve sosyal sekmeleri atlanır.",
-    "Claude'a her mailin başlıkları ve temizlenmiş metninin ilk 2000 karakteri gider (config.json › maxChars).",
-    "Model config.json › model (varsayılan haiku). Kişisel tercihler rules.md'de; setup onu hiç ezmez.",
-    "Claude hesapları config.json › accounts sırasıyla denenir; ilk yanıt veren kullanılır. Hiçbiri yanıt vermezse o mailler bir sonraki çalışmada tekrar okunur."
+    "Install and reconnect: templates/inbox-watch/setup.sh in the Chores repository (Gmail disconnected: setup.sh --reconnect).",
+    "No action: the run is ok and does not notify. Action: warn, with a notification. Report: reports/YYYY-MM-DD-HHMM.md.",
+    "Each run reads what arrived since the last successful run (the first run: the last 24 hours). Inbox and spam are read; the Promotions and Social tabs are skipped.",
+    "Claude receives each mail's headers and the first 2000 characters of its cleaned text (config.json › maxChars).",
+    "Model: config.json › model (default haiku). Report language: config.json › language (en or tr). Personal preferences live in rules.md, which setup never overwrites.",
+    "Claude accounts are tried in the order of config.json › accounts; the first that answers is used. If none answers, those mails are read again on the next run."
   ],
   "createdBy": "claude-code",
   "createdAt": "2026-09-27T16:30:40Z",
-  "version": "1.1.1",
+  "version": "1.2.0",
   "changelog": [
+    {
+      "version": "1.2.0",
+      "date": "2026-10-16",
+      "notes": [
+        "English texts. The report language is config.json › language (en or tr): new installs start in English, existing installs keep Turkish."
+      ]
+    },
     {
       "version": "1.1.1",
       "date": "2026-09-27",
-      "notes": ["Rapordaki Gmail linkleri hesabı ?authuser= ile seçer; /u/<e-posta>/ biçimi Gmail'de \"Temporary Error (404)\" veriyordu."]
+      "notes": [
+        "Gmail links in the report pick the account with ?authuser=; the /u/<email>/ form returned Gmail's \"Temporary Error (404)\"."
+      ]
     },
     {
       "version": "1.1.0",
       "date": "2026-09-27",
-      "notes": ["Claude'un düşünme modu kapatıldı: ilk gerçek çalışmada maliyetin ~%85'i buydu ve daha fazla gürültü işaretliyordu.", "Aynı yazışmadaki mailler tek satır olur (en yenisi okunur)."]
+      "notes": [
+        "Claude's thinking is off: it was ~85% of the cost of the first real run and flagged more noise.",
+        "Mails of one thread become a single line (the newest is read)."
+      ]
     },
     {
       "version": "1.0.0",
       "date": "2026-09-27",
-      "notes": ["İlk sürüm: günde iki kez gelen kutusu ve spam taraması, yalnızca aksiyon gerektiren mailler raporlanır."]
+      "notes": [
+        "First version: inbox and spam checked twice a day, only mails that need action are reported."
+      ]
     }
   ],
-  "category": "izleme",
-  "requires": ["/usr/bin/python3"],
+  "category": "watch",
+  "requires": [
+    "/usr/bin/python3"
+  ],
   "links": [
-    { "title": "Gmail", "url": "https://mail.google.com/" },
-    { "title": "Google Auth Platform", "url": "https://console.cloud.google.com/auth/overview" },
-    { "title": "Raporlar", "url": "~/.local/share/chores/jobs/inbox-watch/reports" }
+    {
+      "title": "Gmail",
+      "url": "https://mail.google.com/"
+    },
+    {
+      "title": "Google Auth Platform",
+      "url": "https://console.cloud.google.com/auth/overview"
+    },
+    {
+      "title": "Reports",
+      "url": "~/.local/share/chores/jobs/inbox-watch/reports"
+    }
   ]
 }

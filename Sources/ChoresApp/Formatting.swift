@@ -18,9 +18,16 @@ enum Fmt {
         return rate.formatted(.percent.precision(.fractionLength(0)).locale(locale))
     }
 
-    /// A job category as shown; jobs without one are grouped under a translated "Other".
+    /// The skill's four categories and "Other" are translated; a job's own word is shown as written.
     static func category(_ category: String) -> String {
-        category == JobOverview.uncategorized ? String(localized: "Other") : category.capitalized(with: locale)
+        switch category {
+        case JobOverview.uncategorized: String(localized: "Other")
+        case "watch": String(localized: "Watch", comment: "Job category: checks and watches")
+        case "maintenance": String(localized: "Maintenance", comment: "Job category: cleanup and upkeep")
+        case "sync": String(localized: "Sync", comment: "Job category: sync and mirror")
+        case "report": String(localized: "Reports", comment: "Job category: jobs that produce reports")
+        default: category.capitalized(with: locale)
+        }
     }
 
     static func relative(_ date: Date, now: Date = Date()) -> String {

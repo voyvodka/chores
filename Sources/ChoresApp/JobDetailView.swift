@@ -60,7 +60,7 @@ struct JobDetailView: View {
             .padding(.horizontal, 20)
             .padding(.bottom, 10)
 
-            // Same Geçmiş / Bilgi split as the menu page. An `.inspector` was tried and dropped: in
+            // Same History / Info split as the menu page. An `.inspector` was tried and dropped: in
             // this split view it sends AppKit into an endless constraint-update loop and crashes.
             if tab == .info {
                 ScrollView {
