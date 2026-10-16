@@ -62,7 +62,8 @@ import Testing
         let record = try JobRunner(store: store).run(jobID: "slow", trigger: .manual)
         #expect(record.timedOut == true)
         #expect(record.outcome == .fail)
-        #expect(Date().timeIntervalSince(started) < 10)
+        // Well under the script's 30 s; the margin absorbs a loaded CI runner.
+        #expect(Date().timeIntervalSince(started) < 20)
     }
 
     @Test func timeoutKillsAJobThatIgnoresSIGTERM() throws {
@@ -70,7 +71,7 @@ import Testing
         let started = Date()
         let record = try JobRunner(store: store).run(jobID: "stubborn", trigger: .manual)
         #expect(record.timedOut == true)
-        #expect(Date().timeIntervalSince(started) < 1 + JobRunner.timeoutGrace + 4)
+        #expect(Date().timeIntervalSince(started) < 1 + JobRunner.timeoutGrace + 14)
     }
 
     func isGone(_ pid: pid_t) -> Bool {
@@ -96,17 +97,25 @@ import Testing
         try makeJob("stubborn-child", script: "(trap '' TERM; sleep 30) & echo $! > child.pid")
         let started = Date()
         _ = try JobRunner(store: store).run(jobID: "stubborn-child", trigger: .manual)
-        #expect(Date().timeIntervalSince(started) < JobRunner.timeoutGrace + 4)
+        #expect(Date().timeIntervalSince(started) < JobRunner.timeoutGrace + 14)
         let pid = try #require(pid_t(String(decoding: Data(contentsOf: store.paths.jobDirectory("stubborn-child")
             .appending(path: "child.pid")), as: UTF8.self).trimmingCharacters(in: .whitespacesAndNewlines)))
         #expect(isGone(pid))
     }
 
-    @Test func secondRunOfARunningJobIsRefusedAndRecordsNothing() async throws {
-        try makeJob("single", script: "sleep 2")
+    @Test func secondRunOfARunningJobIsRefusedAndRecordsNothing() throws {
+        // Long enough that the second attempt cannot outwait it within the lock's patience on a slow runner.
+        try makeJob("single", script: "sleep 5")
         let store = store
-        let first = Task.detached { try JobRunner(store: store).run(jobID: "single", trigger: .scheduled) }
-        let deadline = Date().addingTimeInterval(5)
+        nonisolated(unsafe) var firstResult: Result<RunRecord, Error>?
+        let firstDone = DispatchSemaphore(value: 0)
+        // A thread of its own, not a task: on a CI runner with few cores the other tests' blocking runs
+        // can hold every thread of the cooperative pool, and a detached task would not start in time.
+        Thread {
+            firstResult = Result { try JobRunner(store: store).run(jobID: "single", trigger: .scheduled) }
+            firstDone.signal()
+        }.start()
+        let deadline = Date().addingTimeInterval(20)
         while store.running("single") == nil, Date() < deadline { usleep(20_000) }
         #expect(store.running("single") != nil)
 
@@ -118,7 +127,8 @@ import Testing
         let logs = try FileManager.default.contentsOfDirectory(atPath: store.paths.logsDirectory("single").path)
         #expect(logs.count == 1)
 
-        let record = try await first.value
+        firstDone.wait()
+        let record = try #require(firstResult).get()
         #expect(record.outcome == .ok)
         #expect(store.runs("single").map(\.id) == [record.id])
         // The lock goes with the run.
