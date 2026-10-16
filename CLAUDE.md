@@ -23,7 +23,7 @@ too live in `templates/<id>/` with their own `setup.sh` (decision "Paylaşılan 
 | Packaging | `swift build` + script-built `.app`, ad-hoc signed, installed to `~/Applications` | Verified by a spike: notifications work and permission survives rebuilds |
 | Job authoring | Claude Code skill in `skill/`, symlinked into each Claude account's skills dir | Jobs are created by Claude Code, never by the app |
 
-Reasoning in full: the `## Kararlar` section of `devdocs/product/01-brief.md`. Do not swap a
+Reasoning in full: `devdocs/product/02-decisions.md`. Do not swap a
 component without reading its "Elenenler" line — the alternatives were considered and rejected.
 
 ## Where the truth lives
@@ -35,7 +35,7 @@ clone), read `CHANGELOG.md` and the code instead.
 
 `devdocs/README.md` indexes every document and what each one answers; keep it current. Read
 `devdocs/product/00-state.md` before proposing any implementation plan, then the decisions in
-`devdocs/product/01-brief.md`. The roadmap and progress ledger is `devdocs/product/03-mvp.md`.
+`devdocs/product/02-decisions.md`. The roadmap and progress ledger is `devdocs/product/03-mvp.md`.
 Changes to `devdocs/` are committed and pushed in that repository.
 
 When code and documents disagree, raise it — do not silently follow one of them.
