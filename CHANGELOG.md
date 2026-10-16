@@ -7,6 +7,8 @@ update themselves to it.
 
 ## [Unreleased]
 
+## [1.1.0] - 2026-10-16
+
 ### Added
 
 - A running job's log is shown live, followed to its end, in the window and on its menu page until a past run is picked.
@@ -59,6 +61,7 @@ The first public release.
 - `templates/inbox-watch`: a shareable job that reads a Gmail inbox twice a day (read-only OAuth, secrets in the Keychain) and has `claude -p` report only the mails that need action, with Gmail links; `setup.sh` installs or updates it on any Mac running Chores.
 - `ChoresApp --snapshot` renders the menu and window off-screen with a layout report; `--show-menu-preview`, `--show-window` and `--show-settings` open them from a debug build.
 
-[Unreleased]: https://github.com/voyvodka/chores/compare/v1.0.1...HEAD
+[Unreleased]: https://github.com/voyvodka/chores/compare/v1.1.0...HEAD
+[1.1.0]: https://github.com/voyvodka/chores/compare/v1.0.1...v1.1.0
 [1.0.1]: https://github.com/voyvodka/chores/compare/v1.0.0...v1.0.1
 [1.0.0]: https://github.com/voyvodka/chores/releases/tag/v1.0.0
