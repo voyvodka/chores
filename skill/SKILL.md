@@ -75,7 +75,7 @@ The runner creates `logs/`, `runs.jsonl` and the report folder itself.
 | `command` | yes | argv, run via `/usr/bin/env` with the job folder as working directory |
 | `schedule` | yes | `{"calendar": [...]}`, `{"intervalSeconds": N}`, both, or `{}` for on-demand only |
 | `runAtLoad` | no | Also run once per boot, the first time the scheduler sees the job after a restart |
-| `timeoutSeconds` | no | The runner kills the job after this; set it for anything that calls a network or an agent |
+| `timeoutSeconds` | no | The runner kills the job after this many seconds awake (time the Mac sleeps does not count); set it for anything that calls a network or an agent |
 | `environment` | no | Extra environment variables. `PATH` already includes `~/.local/bin` and Homebrew; a `PATH` set here replaces that default instead of extending it |
 | `reportDirectory` | no | Folder the job writes reports into: relative to the job folder (preferred), absolute, or `~/…` |
 | `notify` | no | `always`, `problems` (default: warn/fail only) or `never` |

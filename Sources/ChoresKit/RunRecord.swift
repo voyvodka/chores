@@ -54,11 +54,16 @@ public struct RunRecord: Codable, Equatable, Sendable, Identifiable {
     public var jobVersion: String?
     /// Stopped on purpose (Stop in the app, `chores stop`, Ctrl-C), which is never notified.
     public var stoppedByUser: Bool?
+    /// Part of `durationSeconds` the Mac spent asleep; nil when it stayed awake.
+    public var asleepSeconds: Double?
+
+    /// Time the job actually had to run. A timeout counts this too.
+    public var awakeSeconds: Double { max(0, durationSeconds - (asleepSeconds ?? 0)) }
 
     public init(id: String, startedAt: Date, endedAt: Date, durationSeconds: Double, exitCode: Int32,
                 signal: Bool? = nil, timedOut: Bool? = nil, outcome: Outcome, summary: String? = nil,
                 report: String? = nil, log: String, trigger: Trigger, jobVersion: String? = nil,
-                stoppedByUser: Bool? = nil) {
+                stoppedByUser: Bool? = nil, asleepSeconds: Double? = nil) {
         self.id = id
         self.startedAt = startedAt
         self.endedAt = endedAt
@@ -73,6 +78,7 @@ public struct RunRecord: Codable, Equatable, Sendable, Identifiable {
         self.trigger = trigger
         self.jobVersion = jobVersion
         self.stoppedByUser = stoppedByUser
+        self.asleepSeconds = asleepSeconds
     }
 }
 

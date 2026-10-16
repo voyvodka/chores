@@ -129,7 +129,7 @@ struct MenuJobDetail: View {
                         Text(Fmt.absolute(run.endedAt))
                             .monospacedDigit()
                             .frame(width: 118, alignment: .leading)
-                        Text(run.summary ?? Fmt.duration(run.durationSeconds))
+                        Text(run.summary ?? Fmt.duration(run.awakeSeconds))
                             .foregroundStyle(.secondary)
                             .lineLimit(1)
                         Spacer(minLength: 0)

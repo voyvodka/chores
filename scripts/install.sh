@@ -39,6 +39,8 @@ command cp -R .build/release/Chores_ChoresApp.bundle/Contents/Resources/*.lproj 
 # icon, Chores.icns the fallback for places that read only CFBundleIconFile.
 command cp -f assets/prebuilt/Assets.car assets/prebuilt/Chores.icns "$BUNDLE/Contents/Resources/"
 mkdir -p "$BUNDLE/Contents/Library/LaunchAgents"
+# Standard, not Background: jobs inherit the scheduler's class, and Background ran the same work
+# about six times slower (measured with a throwaway agent, 2026-10-16).
 cat >"$BUNDLE/Contents/Library/LaunchAgents/dev.voyvodka.chores.scheduler.plist" <<AGENT
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
@@ -49,7 +51,7 @@ cat >"$BUNDLE/Contents/Library/LaunchAgents/dev.voyvodka.chores.scheduler.plist"
   <key>ProgramArguments</key><array><string>chores</string><string>scheduler</string></array>
   <key>RunAtLoad</key><true/>
   <key>KeepAlive</key><true/>
-  <key>ProcessType</key><string>Background</string>
+  <key>ProcessType</key><string>Standard</string>
   <key>AssociatedBundleIdentifiers</key><array><string>$BUNDLE_ID</string></array>
 </dict>
 </plist>
