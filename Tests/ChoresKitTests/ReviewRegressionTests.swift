@@ -4,11 +4,12 @@ import Testing
 
 /// Regressions for defects found in the pre-hand-off review.
 @Suite struct ReviewRegressionTests {
+    let temp: TempRoot
     let store: JobStore
 
     init() throws {
-        let root = FileManager.default.temporaryDirectory.appending(path: "chores-regress-\(UUID().uuidString)")
-        try FileManager.default.createDirectory(at: root, withIntermediateDirectories: true)
+        temp = try TempRoot("chores-regress-")
+        let root = temp.url
         store = JobStore(paths: ChoresPaths.current(environment: ["CHORES_HOME": root.path]))
     }
 

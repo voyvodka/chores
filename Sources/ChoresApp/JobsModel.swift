@@ -285,7 +285,7 @@ final class DirectoryWatcher: @unchecked Sendable {
     }
 
     static func isRelevant(_ path: String) -> Bool {
-        !path.contains("/logs/") && !path.contains("/reports/") && !path.hasSuffix("/.manual-trigger")
+        !path.contains("/logs/") && !path.contains("/reports/")
     }
 
     deinit {

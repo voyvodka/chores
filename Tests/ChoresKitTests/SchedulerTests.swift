@@ -86,6 +86,17 @@ import Testing
                               calendar: cal) == ["l"])
     }
 
+    @Test func runAtLoadMissedWhileDisabledWaitsForTheNextBoot() {
+        var state = SchedulerState()
+        let load = job("l", Schedule(intervalSeconds: 604_800), runAtLoad: true)
+        let now = date("2026-09-24T12:00:00")
+        #expect(Scheduler.due(input([load], disabled: ["l"]), state: &state, now: now, boot: "b1", calendar: cal).isEmpty)
+        #expect(Scheduler.due(input([load]), state: &state, now: now.addingTimeInterval(15), boot: "b1",
+                              calendar: cal).isEmpty)
+        #expect(Scheduler.due(input([load]), state: &state, now: now.addingTimeInterval(30), boot: "b2",
+                              calendar: cal) == ["l"])
+    }
+
     @Test func disabledJobsSkipTheirBacklog() {
         var state = SchedulerState()
         let a = job("a", daily)
@@ -115,6 +126,7 @@ import Testing
 
         // The app's next run agrees with the scheduler.
         let root = FileManager.default.temporaryDirectory.appending(path: "chores-reenable-\(UUID().uuidString)")
+        defer { try? FileManager.default.removeItem(at: root) }
         let store = JobStore(paths: ChoresPaths.current(environment: ["CHORES_HOME": root.path]))
         try store.save(tick)
         try store.append(RunRecord(id: "r", startedAt: lastRun["t"]!, endedAt: lastRun["t"]!, durationSeconds: 0,
@@ -149,6 +161,7 @@ import Testing
 
     @Test func settingsRoundTrip() throws {
         let root = FileManager.default.temporaryDirectory.appending(path: "chores-settings-\(UUID().uuidString)")
+        defer { try? FileManager.default.removeItem(at: root) }
         let store = JobStore(paths: ChoresPaths.current(environment: ["CHORES_HOME": root.path]))
         #expect(store.disabledJobs().isEmpty)
         try store.setDisabled("a", true)
