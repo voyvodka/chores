@@ -1,6 +1,5 @@
 import Foundation
 
-/// `UserDefaults` keys for the app's own preferences.
 enum AppSettings {
     static let showDisabledInMenu = "showDisabledInMenu"
     /// Report or log, whichever the user picked last; kept across runs, jobs and launches.
@@ -9,7 +8,6 @@ enum AppSettings {
     static let detailTab = "detailTab"
 }
 
-/// The two tabs of a job page.
 enum DetailTab: String {
     case history, info
 }

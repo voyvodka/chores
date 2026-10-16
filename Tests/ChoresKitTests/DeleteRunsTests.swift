@@ -19,7 +19,6 @@ import Testing
                                                 withIntermediateDirectories: true)
     }
 
-    /// Writes a run with its log, and a report inside the job folder or outside it.
     private func addRun(_ id: String, reportOutside: Bool = false) throws {
         let log = "logs/\(id).log"
         try Data("log \(id)".utf8).write(to: store.paths.jobDirectory("d").appending(path: log))

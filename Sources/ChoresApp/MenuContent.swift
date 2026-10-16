@@ -15,7 +15,6 @@ struct MenuContent: View {
     @State private var filter: Set<Outcome> = []
     @AppStorage(AppSettings.showDisabledInMenu) private var showDisabled = false
 
-    /// The jobs the list shows: disabled ones only when asked for, then the chip filter.
     private var visibleJobs: [JobSnapshot] {
         model.jobs.filter { job in
             (showDisabled || job.loadState != .disabled) && (filter.isEmpty || counts(job, in: filter))
@@ -291,7 +290,6 @@ struct MenuContent: View {
     }
 }
 
-/// An outcome count in the header that doubles as a filter toggle for the list.
 private struct CountChip: View {
     let outcome: Outcome
     let count: Int

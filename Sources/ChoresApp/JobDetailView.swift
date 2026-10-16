@@ -14,7 +14,6 @@ struct JobDetailView: View {
     @AppStorage(AppSettings.detailTab) private var tab: DetailTab = .history
 
     private var recentRuns: [RunRecord] { Array(job.runs.suffix(100).reversed()) }
-    /// The run whose output is shown: the newest of the selected ones.
     private var selectedRun: RunRecord? {
         recentRuns.first { selection.contains($0.id) } ?? recentRuns.first
     }
@@ -256,7 +255,6 @@ struct RunOutputView: View {
     var compact = false
 
     enum Pane: String { case report, log }
-    /// The user's last pick, kept across runs, jobs and launches.
     @AppStorage(AppSettings.outputPane) private var preferred: Pane = .report
     /// A pick made on this run that the preference alone would not show (Report on a run without one).
     @State private var explicit: Pane?

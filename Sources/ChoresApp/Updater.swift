@@ -50,7 +50,6 @@ final class Updater {
         self.paths = paths
     }
 
-    /// Only the installed app, built from a git checkout with a remote, on the real root.
     var isAvailable: Bool { JobsModel.isInstalledBundle && AppInfo.repository != nil && !paths.customRoot }
 
     var installed: ReleaseVersion? { AppInfo.describe.flatMap(ReleaseVersion.init(describe:)) }
@@ -83,7 +82,6 @@ final class Updater {
         }
     }
 
-    /// Fetches tags and works out whether a newer release exists; installs it when asked to.
     func check(installing: Bool) async {
         guard isAvailable, let repository = AppInfo.repository else { return }
         switch state {
@@ -150,7 +148,6 @@ final class Updater {
         }
     }
 
-    /// Reads and removes what `update.sh` left behind, and says how it went.
     private func reportFinishedUpdate() {
         guard let data = try? Data(contentsOf: stateURL),
               let outcome = try? JSONDecoder().decode(Outcome.self, from: data) else { return }

@@ -8,7 +8,6 @@ public enum Language: String, Sendable, CaseIterable {
     case turkish = "tr"
 }
 
-/// Human-readable descriptions of schedules and durations for the app.
 public enum ScheduleText {
     private struct Words {
         let weekdays: [String]
