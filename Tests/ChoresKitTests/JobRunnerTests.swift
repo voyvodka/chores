@@ -33,6 +33,13 @@ import Testing
         #expect(store.running("hello") == nil)
     }
 
+    @Test func holdsOffIdleSleepWhileTheJobRuns() throws {
+        try makeJob("awake", script: "/usr/bin/pmset -g assertions")
+        let record = try JobRunner(store: store).run(jobID: "awake", trigger: .manual)
+        #expect(try #require(store.logTail("awake", run: record)).contains("Chores: running awake"))
+        #expect(record.asleepSeconds == nil)
+    }
+
     @Test func resultFileSetsOutcomeAndSummary() throws {
         try makeJob("warns", script: "echo 'warn 2 of 3 checks passed' > \"$CHORES_RESULT\"")
         let record = try JobRunner(store: store).run(jobID: "warns", trigger: .launchd)

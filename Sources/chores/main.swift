@@ -53,7 +53,7 @@ func notifyIfNeeded(_ job: JobDefinition, _ record: RunRecord) {
         return
     }
     let title = "\(job.title) · \(record.outcome.rawValue)"
-    let message = record.summary ?? "Finished in \(Int(record.durationSeconds))s"
+    let message = record.summary ?? "Finished in \(Int(record.awakeSeconds))s"
     let process = Process()
     process.executableURL = URL(fileURLWithPath: "/usr/bin/osascript")
     // Passing text as argv avoids AppleScript string escaping entirely.
@@ -79,7 +79,7 @@ func runCommand(_ id: String) -> Never {
             try? Data(runID.utf8).write(to: URL(fileURLWithPath: startedFile), options: .atomic)
         }
         if trigger == .manual {
-            print("\(record.outcome.rawValue) \(record.summary ?? "") (\(String(format: "%.1f", record.durationSeconds))s)")
+            print("\(record.outcome.rawValue) \(record.summary ?? "") (\(String(format: "%.1f", record.awakeSeconds))s)")
             print("log: \(paths.jobDirectory(id).appending(path: record.log).path)")
             if let report = record.report { print("report: \(report)") }
         }

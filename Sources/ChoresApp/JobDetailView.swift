@@ -191,7 +191,13 @@ struct JobDetailView: View {
             }
             .width(min: 95, ideal: 105, max: 130)
             TableColumn("Duration") { run in
-                Text(Fmt.duration(run.durationSeconds)).monospacedDigit().foregroundStyle(.secondary)
+                HStack(spacing: 4) {
+                    Text(Fmt.duration(run.awakeSeconds))
+                    if run.asleepSeconds != nil { Image(systemName: "moon.zzz") }
+                }
+                .monospacedDigit()
+                .foregroundStyle(.secondary)
+                .help(run.asleepSeconds.map { String(localized: "The Mac slept \(Fmt.duration($0)) during this run") } ?? "")
             }
             .width(min: 80, ideal: 85, max: 110)
             TableColumn("Version") { run in

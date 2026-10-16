@@ -1,1662 +1,1672 @@
 {
-  "sourceLanguage": "en",
-  "strings": {
-    "": {
-      "shouldTranslate": false
+  "sourceLanguage" : "en",
+  "strings" : {
+    "" : {
+      "shouldTranslate" : false
     },
-    "%@ is available": {
-      "localizations": {
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "%@ hazır"
+    "%@ is available" : {
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ hazır"
           }
         }
       }
     },
-    "%@ is available (Settings › Updates)": {
-      "localizations": {
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "%@ hazır (Ayarlar › Güncellemeler)"
+    "%@ is available (Settings › Updates)" : {
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ hazır (Ayarlar › Güncellemeler)"
           }
         }
       }
     },
-    "%@ · next %@": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "new",
-            "value": "%1$@ · next %2$@"
-          }
-        },
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "%1$@ · sonraki %2$@"
-          }
-        }
-      }
-    },
-    "%@. Settings › Updates shows the log.": {
-      "localizations": {
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "%@. Log Ayarlar › Güncellemeler'de."
-          }
-        }
-      }
-    },
-    "%lld jobs: %@": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "new",
-            "value": "%1$lld jobs: %2$@"
+    "%@ · next %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%1$@ · next %2$@"
           }
         },
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "%lld job: %@"
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ · sonraki %2$@"
           }
         }
       }
     },
-    "(log is empty)": {
-      "localizations": {
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "(log boş)"
+    "%@. Settings › Updates shows the log." : {
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@. Log Ayarlar › Güncellemeler'de."
           }
         }
       }
     },
-    "(nothing logged yet)": {
-      "localizations": {
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "(henüz log yok)"
-          }
-        }
-      }
-    },
-    "About": {
-      "localizations": {
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Hakkında"
-          }
-        }
-      }
-    },
-    "Action Failed": {
-      "localizations": {
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "İşlem başarısız"
-          }
-        }
-      }
-    },
-    "All Jobs": {
-      "localizations": {
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Tüm job'lar"
-          }
-        }
-      }
-    },
-    "All jobs are turned off.": {
-      "localizations": {
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Bütün job'lar kapalı."
-          }
-        }
-      }
-    },
-    "Average time": {
-      "localizations": {
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Ortalama süre"
-          }
-        }
-      }
-    },
-    "Avg. time": {
-      "localizations": {
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Ort. süre"
-          }
-        }
-      }
-    },
-    "Back": {
-      "localizations": {
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Geri"
-          }
-        }
-      }
-    },
-    "Build": {
-      "localizations": {
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Derleme"
-          }
-        }
-      }
-    },
-    "Check Now": {
-      "localizations": {
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Şimdi denetle"
-          }
-        }
-      }
-    },
-    "Checking…": {
-      "localizations": {
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Denetleniyor…"
-          }
-        }
-      }
-    },
-    "Chores": {
-      "shouldTranslate": false
-    },
-    "Chores checks once a day for a newer release tag, builds it on this Mac and installs it. A running job postpones the install until it ends.": {
-      "localizations": {
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Chores günde bir kez daha yeni bir sürüm etiketi var mı bakar, onu bu Mac'te derler ve kurar. Çalışan bir job varsa kurulum o bitene kadar bekler."
-          }
-        }
-      }
-    },
-    "Chores could not update to %@": {
-      "localizations": {
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Chores %@ sürümüne güncellenemedi"
-          }
-        }
-      }
-    },
-    "Chores restarts to show the new language.": {
-      "localizations": {
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Yeni dil için Chores yeniden başlar."
-          }
-        }
-      }
-    },
-    "Chores updated to %@": {
-      "localizations": {
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Chores %@ sürümüne güncellendi"
-          }
-        }
-      }
-    },
-    "Chores, %@": {
-      "localizations": {
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Chores, %@"
-          }
-        }
-      }
-    },
-    "Chores, a job is running, %@": {
-      "localizations": {
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Chores, job çalışıyor, %@"
-          }
-        }
-      }
-    },
-    "Clear History…": {
-      "localizations": {
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Geçmişi temizle…"
-          }
-        }
-      }
-    },
-    "Copy Manual Run Command": {
-      "localizations": {
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Elle çalıştırma komutunu kopyala"
-          }
-        }
-      }
-    },
-    "Could not change open at login: %@": {
-      "localizations": {
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Girişte başlatma ayarlanamadı: %@"
-          }
-        }
-      }
-    },
-    "Could not check for updates: %@": {
-      "localizations": {
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Güncellemeler denetlenemedi: %@"
-          }
-        }
-      }
-    },
-    "Could not read job.json": {
-      "localizations": {
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "job.json okunamadı"
-          }
-        }
-      }
-    },
-    "Could not read the report: %@": {
-      "localizations": {
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Rapor okunamadı: %@"
-          }
-        }
-      }
-    },
-    "Could not start the scheduler: %@": {
-      "localizations": {
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Zamanlayıcı başlatılamadı: %@"
-          }
-        }
-      }
-    },
-    "Could not start the update to %@: %@": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "new",
-            "value": "Could not start the update to %1$@: %2$@"
+    "%lld jobs: %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%1$lld jobs: %2$@"
           }
         },
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "%1$@ güncellemesi başlatılamadı: %2$@"
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld job: %@"
           }
         }
       }
     },
-    "Date": {
-      "localizations": {
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Tarih"
+    "(log is empty)" : {
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "(log boş)"
           }
         }
       }
     },
-    "Delete": {
-      "localizations": {
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Sil"
+    "(nothing logged yet)" : {
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "(henüz log yok)"
           }
         }
       }
     },
-    "Delete %lld Runs…": {
-      "localizations": {
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "%lld çalışmayı sil…"
+    "About" : {
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hakkında"
           }
         }
       }
     },
-    "Delete %lld runs?": {
-      "localizations": {
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "%lld çalışma silinsin mi?"
+    "Action Failed" : {
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "İşlem başarısız"
           }
         }
       }
     },
-    "Delete Run…": {
-      "localizations": {
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Çalışmayı sil…"
+    "All Jobs" : {
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tüm job'lar"
           }
         }
       }
     },
-    "Delete all %lld runs of %@?": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "new",
-            "value": "Delete all %1$lld runs of %2$@?"
+    "All jobs are turned off." : {
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bütün job'lar kapalı."
+          }
+        }
+      }
+    },
+    "Average time" : {
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ortalama süre"
+          }
+        }
+      }
+    },
+    "Avg. time" : {
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ort. süre"
+          }
+        }
+      }
+    },
+    "Back" : {
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Geri"
+          }
+        }
+      }
+    },
+    "Build" : {
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Derleme"
+          }
+        }
+      }
+    },
+    "Check Now" : {
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Şimdi denetle"
+          }
+        }
+      }
+    },
+    "Checking…" : {
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Denetleniyor…"
+          }
+        }
+      }
+    },
+    "Chores" : {
+      "shouldTranslate" : false
+    },
+    "Chores checks once a day for a newer release tag, builds it on this Mac and installs it. A running job postpones the install until it ends." : {
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Chores günde bir kez daha yeni bir sürüm etiketi var mı bakar, onu bu Mac'te derler ve kurar. Çalışan bir job varsa kurulum o bitene kadar bekler."
+          }
+        }
+      }
+    },
+    "Chores could not update to %@" : {
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Chores %@ sürümüne güncellenemedi"
+          }
+        }
+      }
+    },
+    "Chores restarts to show the new language." : {
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Yeni dil için Chores yeniden başlar."
+          }
+        }
+      }
+    },
+    "Chores updated to %@" : {
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Chores %@ sürümüne güncellendi"
+          }
+        }
+      }
+    },
+    "Chores, %@" : {
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Chores, %@"
+          }
+        }
+      }
+    },
+    "Chores, a job is running, %@" : {
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Chores, job çalışıyor, %@"
+          }
+        }
+      }
+    },
+    "Clear History…" : {
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Geçmişi temizle…"
+          }
+        }
+      }
+    },
+    "Copy Manual Run Command" : {
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Elle çalıştırma komutunu kopyala"
+          }
+        }
+      }
+    },
+    "Could not change open at login: %@" : {
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Girişte başlatma ayarlanamadı: %@"
+          }
+        }
+      }
+    },
+    "Could not check for updates: %@" : {
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Güncellemeler denetlenemedi: %@"
+          }
+        }
+      }
+    },
+    "Could not read job.json" : {
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "job.json okunamadı"
+          }
+        }
+      }
+    },
+    "Could not read the report: %@" : {
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rapor okunamadı: %@"
+          }
+        }
+      }
+    },
+    "Could not start the scheduler: %@" : {
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zamanlayıcı başlatılamadı: %@"
+          }
+        }
+      }
+    },
+    "Could not start the update to %@: %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Could not start the update to %1$@: %2$@"
           }
         },
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "%2$@ job'unun %1$lld çalışmasının hepsi silinsin mi?"
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ güncellemesi başlatılamadı: %2$@"
           }
         }
       }
     },
-    "Delete this run?": {
-      "localizations": {
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Bu çalışma silinsin mi?"
+    "Date" : {
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tarih"
           }
         }
       }
     },
-    "Dismiss": {
-      "localizations": {
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Kapat"
+    "Delete" : {
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sil"
           }
         }
       }
     },
-    "Dismiss error": {
-      "localizations": {
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Hatayı kapat"
+    "Delete %lld Runs…" : {
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld çalışmayı sil…"
           }
         }
       }
     },
-    "Duration": {
-      "localizations": {
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Süre"
+    "Delete %lld runs?" : {
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld çalışma silinsin mi?"
           }
         }
       }
     },
-    "Each job decides which runs notify (its notify setting); macOS decides how they look.": {
-      "localizations": {
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Hangi çalışmaların bildirileceğine her job kendi notify ayarıyla karar verir; nasıl görüneceğine macOS."
+    "Delete Run…" : {
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Çalışmayı sil…"
           }
         }
       }
     },
-    "Failed": {
-      "localizations": {
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Hata"
-          }
-        }
-      }
-    },
-    "Finished in %@": {
-      "localizations": {
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "%@ içinde bitti"
-          }
-        }
-      }
-    },
-    "Found": {
-      "localizations": {
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Bulundu"
-          }
-        }
-      }
-    },
-    "General": {
-      "localizations": {
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Genel"
-          }
-        }
-      }
-    },
-    "History": {
-      "localizations": {
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Geçmiş"
-          }
-        }
-      }
-    },
-    "History, report and log appear here after the first run.": {
-      "localizations": {
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "İlk çalışmadan sonra geçmiş, rapor ve log burada görünür."
-          }
-        }
-      }
-    },
-    "Info": {
-      "localizations": {
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Bilgi"
-          }
-        }
-      }
-    },
-    "Install %@": {
-      "localizations": {
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "%@ sürümünü kur"
-          }
-        }
-      }
-    },
-    "Install updates automatically": {
-      "localizations": {
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Güncellemeleri otomatik kur"
-          }
-        }
-      }
-    },
-    "Installed": {
-      "localizations": {
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Kurulu"
-          }
-        }
-      }
-    },
-    "Installing %@…": {
-      "localizations": {
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "%@ kuruluyor…"
-          }
-        }
-      }
-    },
-    "Its history, report and log appear here.": {
-      "localizations": {
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Geçmişi, raporu ve log'u burada görünür."
-          }
-        }
-      }
-    },
-    "Jobs appear here once Claude Code sets one up for you.": {
-      "localizations": {
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Claude Code'a bir arka plan işi kurdurduğunda burada görünür."
-          }
-        }
-      }
-    },
-    "Jobs folder": {
-      "localizations": {
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Job klasörü"
-          }
-        }
-      }
-    },
-    "Language": {
-      "localizations": {
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Dil"
-          }
-        }
-      }
-    },
-    "Last checked": {
-      "localizations": {
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Son denetim"
-          }
-        }
-      }
-    },
-    "Last run": {
-      "localizations": {
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Son çalışma"
-          }
-        }
-      }
-    },
-    "License": {
-      "localizations": {
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Lisans"
-          }
-        }
-      }
-    },
-    "Links": {
-      "localizations": {
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Bağlantılar"
-          }
-        }
-      }
-    },
-    "Log": {
-      "localizations": {
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Log"
-          }
-        }
-      }
-    },
-    "Log not found.": {
-      "localizations": {
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Log bulunamadı."
-          }
-        }
-      }
-    },
-    "Maintenance": {
-      "comment": "Job category: cleanup and upkeep",
-      "localizations": {
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Bakım"
-          }
-        }
-      }
-    },
-    "Menu Preview": {
-      "localizations": {
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Menü önizleme"
-          }
-        }
-      }
-    },
-    "Missing: %@": {
-      "localizations": {
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Eksik: %@"
-          }
-        }
-      }
-    },
-    "More": {
-      "localizations": {
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Diğer"
-          }
-        }
-      }
-    },
-    "Never run": {
-      "localizations": {
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Henüz çalışmadı"
-          }
-        }
-      }
-    },
-    "No Runs Yet": {
-      "localizations": {
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Henüz çalışma yok"
-          }
-        }
-      }
-    },
-    "No job matches this filter.": {
-      "localizations": {
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Bu filtreye uyan job yok."
-          }
-        }
-      }
-    },
-    "No jobs yet": {
-      "localizations": {
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Henüz job yok"
-          }
-        }
-      }
-    },
-    "No run selected.": {
-      "localizations": {
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Seçili çalışma yok."
-          }
-        }
-      }
-    },
-    "No runs yet. History and reports appear here after the first run.": {
-      "localizations": {
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Henüz çalışma yok. İlk çalışmadan sonra geçmiş ve rapor burada görünür."
-          }
-        }
-      }
-    },
-    "Not checked yet": {
-      "localizations": {
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Henüz denetlenmedi"
-          }
-        }
-      }
-    },
-    "Not found on the job's PATH": {
-      "localizations": {
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Job'un PATH'inde bulunamadı"
-          }
-        }
-      }
-    },
-    "Not running": {
-      "localizations": {
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Çalışmıyor"
-          }
-        }
-      }
-    },
-    "Not scheduled": {
-      "localizations": {
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Zamanlanmıyor"
-          }
-        }
-      }
-    },
-    "Notes": {
-      "localizations": {
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Notlar"
-          }
-        }
-      }
-    },
-    "Notifications": {
-      "localizations": {
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Bildirimler"
-          }
-        }
-      }
-    },
-    "OK": {
-      "localizations": {
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Tamam"
-          }
-        }
-      }
-    },
-    "Only the installed Chores.app in ~/Applications can start the scheduler.": {
-      "localizations": {
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Zamanlayıcıyı yalnızca ~/Applications'taki kurulu Chores.app başlatabilir."
-          }
-        }
-      }
-    },
-    "Open File": {
-      "localizations": {
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Dosyayı aç"
-          }
-        }
-      }
-    },
-    "Open Notification Settings…": {
-      "localizations": {
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Bildirim ayarlarını aç…"
-          }
-        }
-      }
-    },
-    "Open at Login": {
-      "localizations": {
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Girişte başlat"
-          }
-        }
-      }
-    },
-    "Open at login": {
-      "localizations": {
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Girişte başlat"
-          }
-        }
-      }
-    },
-    "Open at login is waiting for approval: System Settings › General › Login Items": {
-      "localizations": {
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Girişte başlatma onay bekliyor: Sistem Ayarları › Genel › Giriş Öğeleri"
-          }
-        }
-      }
-    },
-    "Open in Window": {
-      "localizations": {
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Pencerede aç"
-          }
-        }
-      }
-    },
-    "Other": {
-      "localizations": {
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Diğer"
-          }
-        }
-      }
-    },
-    "Permissions": {
-      "localizations": {
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "İzinler"
-          }
-        }
-      }
-    },
-    "Project: %@": {
-      "localizations": {
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Proje: %@"
-          }
-        }
-      }
-    },
-    "Quit Chores": {
-      "localizations": {
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Chores'tan çık"
-          }
-        }
-      }
-    },
-    "Recent runs: %@": {
-      "localizations": {
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Son çalışmalar: %@"
-          }
-        }
-      }
-    },
-    "Refresh": {
-      "localizations": {
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Yenile"
-          }
-        }
-      }
-    },
-    "Refreshing": {
-      "localizations": {
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Yenileniyor"
-          }
-        }
-      }
-    },
-    "Report": {
-      "localizations": {
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Rapor"
-          }
-        }
-      }
-    },
-    "Reports": {
-      "comment": "Job category: jobs that produce reports",
-      "localizations": {
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Rapor"
-          }
-        }
-      }
-    },
-    "Requirements": {
-      "localizations": {
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Gereksinimler"
-          }
-        }
-      }
-    },
-    "Restart Now": {
-      "localizations": {
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Şimdi yeniden başlat"
-          }
-        }
-      }
-    },
-    "Result": {
-      "localizations": {
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Sonuç"
-          }
-        }
-      }
-    },
-    "Run": {
-      "localizations": {
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Çalıştır"
-          }
-        }
-      }
-    },
-    "Run Now": {
-      "localizations": {
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Şimdi çalıştır"
-          }
-        }
-      }
-    },
-    "Run manually": {
-      "localizations": {
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Elle çalıştırıldı"
-          }
-        }
-      }
-    },
-    "Runner": {
-      "localizations": {
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Runner"
-          }
-        }
-      }
-    },
-    "Running": {
-      "localizations": {
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Çalışıyor"
-          }
-        }
-      }
-    },
-    "Running for %@": {
-      "localizations": {
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "%@ süredir çalışıyor"
-          }
-        }
-      }
-    },
-    "Running…": {
-      "localizations": {
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Çalışıyor…"
-          }
-        }
-      }
-    },
-    "Runs": {
-      "localizations": {
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Çalışma"
-          }
-        }
-      }
-    },
-    "Runs the job once now; it is recorded as manual": {
-      "localizations": {
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Job'u şimdi bir kez çalıştırır; geçmişe elle olarak düşer"
-          }
-        }
-      }
-    },
-    "Scheduled": {
-      "localizations": {
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Zamanlanmış"
-          }
-        }
-      }
-    },
-    "Scheduler": {
-      "localizations": {
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Zamanlayıcı"
-          }
-        }
-      }
-    },
-    "Search Jobs": {
-      "localizations": {
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Job'larda ara"
-          }
-        }
-      }
-    },
-    "Select a Job": {
-      "localizations": {
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Bir job seç"
-          }
-        }
-      }
-    },
-    "Settings…": {
-      "localizations": {
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Ayarlar…"
-          }
-        }
-      }
-    },
-    "Setup": {
-      "localizations": {
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Kurulum"
-          }
-        }
-      }
-    },
-    "Show %lld turned-off jobs": {
-      "localizations": {
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Kapalı %lld job'u göster"
-          }
-        }
-      }
-    },
-    "Show 1 turned-off job": {
-      "localizations": {
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Kapalı 1 job'u göster"
-          }
-        }
-      }
-    },
-    "Show Folder in Finder": {
-      "localizations": {
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Klasörü Finder'da göster"
-          }
-        }
-      }
-    },
-    "Show Log": {
-      "localizations": {
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Log'u göster"
-          }
-        }
-      }
-    },
-    "Show all jobs": {
-      "localizations": {
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Tüm job'ları göster"
-          }
-        }
-      }
-    },
-    "Show in Finder": {
-      "localizations": {
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Finder'da göster"
-          }
-        }
-      }
-    },
-    "Show only these jobs": {
-      "localizations": {
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Yalnızca bunları göster"
-          }
-        }
-      }
-    },
-    "Show turned-off jobs in the menu": {
-      "localizations": {
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Kapalı job'ları menüde göster"
-          }
-        }
-      }
-    },
-    "Source": {
-      "localizations": {
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Kaynak"
-          }
-        }
-      }
-    },
-    "Start": {
-      "localizations": {
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Başlat"
-          }
-        }
-      }
-    },
-    "Status": {
-      "localizations": {
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Durum"
-          }
-        }
-      }
-    },
-    "Stop": {
-      "localizations": {
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Durdur"
-          }
-        }
-      }
-    },
-    "Stops the run; it is recorded as stopped by you and does not notify": {
-      "localizations": {
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Çalışmayı durdurur; geçmişe senin durdurduğun bir çalışma olarak düşer ve bildirim göndermez"
-          }
-        }
-      }
-    },
-    "Succeeded": {
-      "localizations": {
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Başarılı"
-          }
-        }
-      }
-    },
-    "Success": {
-      "localizations": {
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Başarı"
-          }
-        }
-      }
-    },
-    "Success · last 30": {
-      "localizations": {
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Başarı · son 30"
-          }
-        }
-      }
-    },
-    "Summary": {
-      "localizations": {
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Özet"
-          }
-        }
-      }
-    },
-    "Sync": {
-      "comment": "Job category: sync and mirror",
-      "localizations": {
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Senkron"
-          }
-        }
-      }
-    },
-    "System": {
-      "localizations": {
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Sistem"
-          }
-        }
-      }
-    },
-    "The scheduler is not running; jobs will not start on time.": {
-      "localizations": {
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Zamanlayıcı çalışmıyor; job'lar zamanında başlamaz."
-          }
-        }
-      }
-    },
-    "The update to %@ failed: %@": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "new",
-            "value": "The update to %1$@ failed: %2$@"
+    "Delete all %lld runs of %@?" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Delete all %1$lld runs of %2$@?"
           }
         },
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "%1$@ güncellemesi başarısız: %2$@"
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%2$@ job'unun %1$lld çalışmasının hepsi silinsin mi?"
           }
         }
       }
     },
-    "Their logs and the reports in the job folder are deleted too. This cannot be undone.": {
-      "localizations": {
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Log'ları ve job klasöründeki raporları da silinir. Bu geri alınamaz."
+    "Delete this run?" : {
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bu çalışma silinsin mi?"
           }
         }
       }
     },
-    "This run produced no report.": {
-      "localizations": {
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Bu çalışma rapor üretmedi."
+    "Dismiss" : {
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kapat"
           }
         }
       }
     },
-    "Today %@": {
-      "localizations": {
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Bugün %@"
+    "Dismiss error" : {
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hatayı kapat"
           }
         }
       }
     },
-    "Tomorrow %@": {
-      "localizations": {
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Yarın %@"
+    "Duration" : {
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Süre"
           }
         }
       }
     },
-    "Turn Off": {
-      "localizations": {
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Kapat"
+    "Each job decides which runs notify (its notify setting); macOS decides how they look." : {
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hangi çalışmaların bildirileceğine her job kendi notify ayarıyla karar verir; nasıl görüneceğine macOS."
           }
         }
       }
     },
-    "Turn On": {
-      "localizations": {
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Aç"
+    "Failed" : {
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hata"
           }
         }
       }
     },
-    "Turned off": {
-      "localizations": {
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Kapalı"
+    "Finished in %@" : {
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ içinde bitti"
           }
         }
       }
     },
-    "Up to date": {
-      "localizations": {
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Güncel"
+    "Found" : {
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bulundu"
           }
         }
       }
     },
-    "Updated": {
-      "localizations": {
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Güncellendi"
+    "General" : {
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Genel"
           }
         }
       }
     },
-    "Updates": {
-      "localizations": {
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Güncellemeler"
+    "History" : {
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Geçmiş"
           }
         }
       }
     },
-    "Updates work in the installed Chores.app built from a git checkout with scripts/install.sh.": {
-      "localizations": {
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Güncellemeler, bir git klonundan scripts/install.sh ile kurulmuş Chores.app'te çalışır."
+    "History, report and log appear here after the first run." : {
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "İlk çalışmadan sonra geçmiş, rapor ve log burada görünür."
           }
         }
       }
     },
-    "Updating to %@…": {
-      "localizations": {
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "%@ sürümüne güncelleniyor…"
+    "Info" : {
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bilgi"
           }
         }
       }
     },
-    "Version": {
-      "localizations": {
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Sürüm"
+    "Install %@" : {
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ sürümünü kur"
           }
         }
       }
     },
-    "Version %@": {
-      "localizations": {
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Sürüm %@"
+    "Install updates automatically" : {
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Güncellemeleri otomatik kur"
           }
         }
       }
     },
-    "Version History": {
-      "localizations": {
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Sürüm geçmişi"
+    "Installed" : {
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kurulu"
           }
         }
       }
     },
-    "Warning": {
-      "localizations": {
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Uyarı"
+    "Installing %@…" : {
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ kuruluyor…"
           }
         }
       }
     },
-    "Watch": {
-      "comment": "Job category: checks and watches",
-      "localizations": {
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "İzleme"
+    "Its history, report and log appear here." : {
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Geçmişi, raporu ve log'u burada görünür."
           }
         }
       }
     },
-    "errors": {
-      "localizations": {
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "hata var"
+    "Jobs appear here once Claude Code sets one up for you." : {
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Claude Code'a bir arka plan işi kurdurduğunda burada görünür."
           }
         }
       }
     },
-    "job.json is invalid": {
-      "localizations": {
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "job.json hatalı"
+    "Jobs folder" : {
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Job klasörü"
           }
         }
       }
     },
-    "job.json is invalid: %@": {
-      "localizations": {
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "job.json hatalı: %@"
+    "Language" : {
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dil"
           }
         }
       }
     },
-    "next %@": {
-      "localizations": {
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "sonraki %@"
+    "Last checked" : {
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Son denetim"
           }
         }
       }
     },
-    "no problems": {
-      "localizations": {
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "sorun yok"
+    "Last run" : {
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Son çalışma"
           }
         }
       }
     },
-    "today %@": {
-      "localizations": {
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "bugün %@"
+    "License" : {
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lisans"
           }
         }
       }
     },
-    "tomorrow %@": {
-      "localizations": {
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "yarın %@"
+    "Links" : {
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bağlantılar"
           }
         }
       }
     },
-    "v%@": {
-      "shouldTranslate": false
-    },
-    "warnings": {
-      "localizations": {
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "uyarı var"
+    "Log" : {
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Log"
           }
         }
       }
     },
-    "—": {
-      "shouldTranslate": false
+    "Log not found." : {
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Log bulunamadı."
+          }
+        }
+      }
     },
-    "… (report shortened; Open File shows all of it)": {
-      "localizations": {
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "… (rapor kısaltıldı, tamamı için \"Dosyayı aç\")"
+    "Maintenance" : {
+      "comment" : "Job category: cleanup and upkeep",
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bakım"
+          }
+        }
+      }
+    },
+    "Menu Preview" : {
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Menü önizleme"
+          }
+        }
+      }
+    },
+    "Missing: %@" : {
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Eksik: %@"
+          }
+        }
+      }
+    },
+    "More" : {
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Diğer"
+          }
+        }
+      }
+    },
+    "Never run" : {
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Henüz çalışmadı"
+          }
+        }
+      }
+    },
+    "No Runs Yet" : {
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Henüz çalışma yok"
+          }
+        }
+      }
+    },
+    "No job matches this filter." : {
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bu filtreye uyan job yok."
+          }
+        }
+      }
+    },
+    "No jobs yet" : {
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Henüz job yok"
+          }
+        }
+      }
+    },
+    "No run selected." : {
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Seçili çalışma yok."
+          }
+        }
+      }
+    },
+    "No runs yet. History and reports appear here after the first run." : {
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Henüz çalışma yok. İlk çalışmadan sonra geçmiş ve rapor burada görünür."
+          }
+        }
+      }
+    },
+    "Not checked yet" : {
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Henüz denetlenmedi"
+          }
+        }
+      }
+    },
+    "Not found on the job's PATH" : {
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Job'un PATH'inde bulunamadı"
+          }
+        }
+      }
+    },
+    "Not running" : {
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Çalışmıyor"
+          }
+        }
+      }
+    },
+    "Not scheduled" : {
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zamanlanmıyor"
+          }
+        }
+      }
+    },
+    "Notes" : {
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Notlar"
+          }
+        }
+      }
+    },
+    "Notifications" : {
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bildirimler"
+          }
+        }
+      }
+    },
+    "OK" : {
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tamam"
+          }
+        }
+      }
+    },
+    "Only the installed Chores.app in ~/Applications can start the scheduler." : {
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zamanlayıcıyı yalnızca ~/Applications'taki kurulu Chores.app başlatabilir."
+          }
+        }
+      }
+    },
+    "Open File" : {
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dosyayı aç"
+          }
+        }
+      }
+    },
+    "Open Notification Settings…" : {
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bildirim ayarlarını aç…"
+          }
+        }
+      }
+    },
+    "Open at Login" : {
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Girişte başlat"
+          }
+        }
+      }
+    },
+    "Open at login" : {
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Girişte başlat"
+          }
+        }
+      }
+    },
+    "Open at login is waiting for approval: System Settings › General › Login Items" : {
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Girişte başlatma onay bekliyor: Sistem Ayarları › Genel › Giriş Öğeleri"
+          }
+        }
+      }
+    },
+    "Open in Window" : {
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pencerede aç"
+          }
+        }
+      }
+    },
+    "Other" : {
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Diğer"
+          }
+        }
+      }
+    },
+    "Permissions" : {
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "İzinler"
+          }
+        }
+      }
+    },
+    "Project: %@" : {
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Proje: %@"
+          }
+        }
+      }
+    },
+    "Quit Chores" : {
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Chores'tan çık"
+          }
+        }
+      }
+    },
+    "Recent runs: %@" : {
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Son çalışmalar: %@"
+          }
+        }
+      }
+    },
+    "Refresh" : {
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Yenile"
+          }
+        }
+      }
+    },
+    "Refreshing" : {
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Yenileniyor"
+          }
+        }
+      }
+    },
+    "Report" : {
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rapor"
+          }
+        }
+      }
+    },
+    "Reports" : {
+      "comment" : "Job category: jobs that produce reports",
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rapor"
+          }
+        }
+      }
+    },
+    "Requirements" : {
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gereksinimler"
+          }
+        }
+      }
+    },
+    "Restart Now" : {
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Şimdi yeniden başlat"
+          }
+        }
+      }
+    },
+    "Result" : {
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sonuç"
+          }
+        }
+      }
+    },
+    "Run" : {
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Çalıştır"
+          }
+        }
+      }
+    },
+    "Run Now" : {
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Şimdi çalıştır"
+          }
+        }
+      }
+    },
+    "Run manually" : {
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Elle çalıştırıldı"
+          }
+        }
+      }
+    },
+    "Runner" : {
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Runner"
+          }
+        }
+      }
+    },
+    "Running" : {
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Çalışıyor"
+          }
+        }
+      }
+    },
+    "Running for %@" : {
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ süredir çalışıyor"
+          }
+        }
+      }
+    },
+    "Running…" : {
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Çalışıyor…"
+          }
+        }
+      }
+    },
+    "Runs" : {
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Çalışma"
+          }
+        }
+      }
+    },
+    "Runs the job once now; it is recorded as manual" : {
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Job'u şimdi bir kez çalıştırır; geçmişe elle olarak düşer"
+          }
+        }
+      }
+    },
+    "Scheduled" : {
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zamanlanmış"
+          }
+        }
+      }
+    },
+    "Scheduler" : {
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zamanlayıcı"
+          }
+        }
+      }
+    },
+    "Search Jobs" : {
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Job'larda ara"
+          }
+        }
+      }
+    },
+    "Select a Job" : {
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bir job seç"
+          }
+        }
+      }
+    },
+    "Settings…" : {
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ayarlar…"
+          }
+        }
+      }
+    },
+    "Setup" : {
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kurulum"
+          }
+        }
+      }
+    },
+    "Show %lld turned-off jobs" : {
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kapalı %lld job'u göster"
+          }
+        }
+      }
+    },
+    "Show 1 turned-off job" : {
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kapalı 1 job'u göster"
+          }
+        }
+      }
+    },
+    "Show Folder in Finder" : {
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Klasörü Finder'da göster"
+          }
+        }
+      }
+    },
+    "Show Log" : {
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Log'u göster"
+          }
+        }
+      }
+    },
+    "Show all jobs" : {
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tüm job'ları göster"
+          }
+        }
+      }
+    },
+    "Show in Finder" : {
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Finder'da göster"
+          }
+        }
+      }
+    },
+    "Show only these jobs" : {
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Yalnızca bunları göster"
+          }
+        }
+      }
+    },
+    "Show turned-off jobs in the menu" : {
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kapalı job'ları menüde göster"
+          }
+        }
+      }
+    },
+    "Source" : {
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kaynak"
+          }
+        }
+      }
+    },
+    "Start" : {
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Başlat"
+          }
+        }
+      }
+    },
+    "Status" : {
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Durum"
+          }
+        }
+      }
+    },
+    "Stop" : {
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Durdur"
+          }
+        }
+      }
+    },
+    "Stops the run; it is recorded as stopped by you and does not notify" : {
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Çalışmayı durdurur; geçmişe senin durdurduğun bir çalışma olarak düşer ve bildirim göndermez"
+          }
+        }
+      }
+    },
+    "Succeeded" : {
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Başarılı"
+          }
+        }
+      }
+    },
+    "Success" : {
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Başarı"
+          }
+        }
+      }
+    },
+    "Success · last 30" : {
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Başarı · son 30"
+          }
+        }
+      }
+    },
+    "Summary" : {
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Özet"
+          }
+        }
+      }
+    },
+    "Sync" : {
+      "comment" : "Job category: sync and mirror",
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Senkron"
+          }
+        }
+      }
+    },
+    "System" : {
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sistem"
+          }
+        }
+      }
+    },
+    "The Mac slept %@ during this run" : {
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bu çalışma sırasında Mac %@ uyudu"
+          }
+        }
+      }
+    },
+    "The scheduler is not running; jobs will not start on time." : {
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zamanlayıcı çalışmıyor; job'lar zamanında başlamaz."
+          }
+        }
+      }
+    },
+    "The update to %@ failed: %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "The update to %1$@ failed: %2$@"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ güncellemesi başarısız: %2$@"
+          }
+        }
+      }
+    },
+    "Their logs and the reports in the job folder are deleted too. This cannot be undone." : {
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Log'ları ve job klasöründeki raporları da silinir. Bu geri alınamaz."
+          }
+        }
+      }
+    },
+    "This run produced no report." : {
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bu çalışma rapor üretmedi."
+          }
+        }
+      }
+    },
+    "Today %@" : {
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bugün %@"
+          }
+        }
+      }
+    },
+    "Tomorrow %@" : {
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Yarın %@"
+          }
+        }
+      }
+    },
+    "Turn Off" : {
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kapat"
+          }
+        }
+      }
+    },
+    "Turn On" : {
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aç"
+          }
+        }
+      }
+    },
+    "Turned off" : {
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kapalı"
+          }
+        }
+      }
+    },
+    "Up to date" : {
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Güncel"
+          }
+        }
+      }
+    },
+    "Updated" : {
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Güncellendi"
+          }
+        }
+      }
+    },
+    "Updates" : {
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Güncellemeler"
+          }
+        }
+      }
+    },
+    "Updates work in the installed Chores.app built from a git checkout with scripts/install.sh." : {
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Güncellemeler, bir git klonundan scripts/install.sh ile kurulmuş Chores.app'te çalışır."
+          }
+        }
+      }
+    },
+    "Updating to %@…" : {
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ sürümüne güncelleniyor…"
+          }
+        }
+      }
+    },
+    "Version" : {
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sürüm"
+          }
+        }
+      }
+    },
+    "Version %@" : {
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sürüm %@"
+          }
+        }
+      }
+    },
+    "Version History" : {
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sürüm geçmişi"
+          }
+        }
+      }
+    },
+    "Warning" : {
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Uyarı"
+          }
+        }
+      }
+    },
+    "Watch" : {
+      "comment" : "Job category: checks and watches",
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "İzleme"
+          }
+        }
+      }
+    },
+    "errors" : {
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "hata var"
+          }
+        }
+      }
+    },
+    "job.json is invalid" : {
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "job.json hatalı"
+          }
+        }
+      }
+    },
+    "job.json is invalid: %@" : {
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "job.json hatalı: %@"
+          }
+        }
+      }
+    },
+    "next %@" : {
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "sonraki %@"
+          }
+        }
+      }
+    },
+    "no problems" : {
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "sorun yok"
+          }
+        }
+      }
+    },
+    "today %@" : {
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "bugün %@"
+          }
+        }
+      }
+    },
+    "tomorrow %@" : {
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "yarın %@"
+          }
+        }
+      }
+    },
+    "v%@" : {
+      "shouldTranslate" : false
+    },
+    "warnings" : {
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "uyarı var"
+          }
+        }
+      }
+    },
+    "—" : {
+      "shouldTranslate" : false
+    },
+    "… (report shortened; Open File shows all of it)" : {
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "… (rapor kısaltıldı, tamamı için \"Dosyayı aç\")"
           }
         }
       }
     }
   },
-  "version": "1.0"
+  "version" : "1.0"
 }
