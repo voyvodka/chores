@@ -19,6 +19,7 @@ update themselves to it.
 - The skill's job categories are English (`watch`, `maintenance`, `sync`, `report`) and the app shows them in its own language; any other category is shown as written.
 - `templates/inbox-watch` 1.2.0 is in English. Its report language is `config.json › language` (`en` or `tr`): new installs start in English, existing installs keep Turkish. Answers in the old Turkish level names are still understood.
 - CI also builds and tests with Xcode 27 on macOS 27; macOS 26 stays the required check.
+- A calendar time that comes while the job is still running is skipped, as before, and now leaves a `skipped` line in the scheduler log.
 - Scheduled jobs run at normal priority. The scheduler agent was `Background`, which every job inherited, and the same work took about six times as long as from a terminal.
 - While a job runs, the Mac does not go to sleep on its own; closing the lid or choosing Sleep still sleeps it. The hold is released after the job's timeout, or after an hour for a job without one.
 - Durations and the average time leave out time the Mac slept during a run; the history shows a moon on such runs with the time asleep. A run records it as `asleepSeconds`, and a timeout counts awake time as before.

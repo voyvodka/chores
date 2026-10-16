@@ -58,6 +58,8 @@ public struct SchedulerHeartbeat: Codable, Equatable, Sendable {
 /// Semantics follow launchd, which the scheduler replaced: a calendar time missed while the Mac
 /// slept runs once on wake (never once per missed occurrence); an interval counts from the end of
 /// the previous run; `runAtLoad` runs once per boot (a log out and back in does not repeat it).
+/// A calendar time that comes while the job is already running is skipped, not queued: the run in
+/// progress started around then anyway, and running again right after it would repeat its work.
 public enum Scheduler {
     public struct Input: Sendable {
         public var jobs: [JobDefinition]
@@ -73,9 +75,20 @@ public enum Scheduler {
         }
     }
 
+    public struct Plan: Equatable, Sendable {
+        public var due: [String] = []
+        /// Jobs whose calendar time came while they were running.
+        public var skipped: [String] = []
+    }
+
     public static func due(_ input: Input, state: inout SchedulerState, now: Date, boot: String,
                            calendar: Calendar = .current) -> [String] {
-        var due: [String] = []
+        plan(input, state: &state, now: now, boot: boot, calendar: calendar).due
+    }
+
+    public static func plan(_ input: Input, state: inout SchedulerState, now: Date, boot: String,
+                            calendar: Calendar = .current) -> Plan {
+        var plan = Plan()
         for job in input.jobs where job.validationErrors().isEmpty {
             let id = job.id
             let checkedSince = state.lastChecked[id] ?? now
@@ -87,7 +100,12 @@ public enum Scheduler {
                 if job.runAtLoad == true { state.loadFiredBoot[id] = boot }
                 continue
             }
-            guard !input.running.contains(id) else { continue }
+            if input.running.contains(id) {
+                if job.schedule.calendar?.contains(where: { calendarTimeCame($0, since: checkedSince, now: now, calendar) }) == true {
+                    plan.skipped.append(id)
+                }
+                continue
+            }
 
             var isDue = false
             if job.runAtLoad == true, state.loadFiredBoot[id] != boot {
@@ -95,15 +113,19 @@ public enum Scheduler {
                 isDue = true
             }
             for entry in job.schedule.calendar ?? [] {
-                if let next = entry.nextDate(after: checkedSince, calendar: calendar), next <= now { isDue = true }
+                if calendarTimeCame(entry, since: checkedSince, now: now, calendar) { isDue = true }
             }
             if let interval = job.schedule.intervalSeconds {
                 let base = state.intervalStart(for: id, lastRunEnd: input.lastRunEnd[id]) ?? now
                 if base.addingTimeInterval(TimeInterval(interval)) <= now { isDue = true }
             }
-            if isDue { due.append(id) }
+            if isDue { plan.due.append(id) }
         }
-        return due
+        return plan
+    }
+
+    private static func calendarTimeCame(_ entry: CalendarEntry, since: Date, now: Date, _ calendar: Calendar) -> Bool {
+        entry.nextDate(after: since, calendar: calendar).map { $0 <= now } ?? false
     }
 
     public static let currentBoot = bootSession()

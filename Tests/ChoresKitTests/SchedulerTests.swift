@@ -56,6 +56,20 @@ import Testing
         #expect(due == ["a"])
     }
 
+    @Test func calendarTimeWhileRunningIsSkippedAndReported() {
+        var state = SchedulerState()
+        let a = job("a", daily)
+        _ = Scheduler.plan(input([a]), state: &state, now: date("2026-09-24T09:59:50"), boot: "b", calendar: cal)
+        let during = Scheduler.plan(input([a], running: ["a"]), state: &state, now: date("2026-09-24T10:00:05"),
+                                    boot: "b", calendar: cal)
+        #expect(during == Scheduler.Plan(due: [], skipped: ["a"]))
+        #expect(Scheduler.plan(input([a], running: ["a"]), state: &state, now: date("2026-09-24T10:00:20"),
+                               boot: "b", calendar: cal) == Scheduler.Plan())
+        // Not queued: the run ending does not start another.
+        #expect(Scheduler.plan(input([a]), state: &state, now: date("2026-09-24T10:30:00"), boot: "b",
+                               calendar: cal) == Scheduler.Plan())
+    }
+
     @Test func intervalCountsFromLastRunEnd() {
         var state = SchedulerState()
         let tick = job("t", Schedule(intervalSeconds: 600))

@@ -265,7 +265,8 @@ func runScheduler() -> Never {
                 running: Set(ids.filter { store.running($0) != nil })
             )
             state.forget(allExcept: Set(store.jobIDs()))
-            let due = Scheduler.due(input, state: &state, now: now, boot: boot)
+            let plan = Scheduler.plan(input, state: &state, now: now, boot: boot)
+            for id in plan.skipped { log.write("skipped \(id): its calendar time came while it was running") }
             do {
                 try store.saveSchedulerState(state)
                 lastSaveFailed = false
@@ -274,7 +275,7 @@ func runScheduler() -> Never {
                 lastSaveFailed = true
             }
 
-            for id in due {
+            for id in plan.due {
                 guard let job = jobs.first(where: { $0.id == id }) else { continue }
                 do {
                     children.append(try JobActions.spawn(job: job, runner: me, paths: paths, trigger: .scheduled,
