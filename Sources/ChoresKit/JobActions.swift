@@ -17,6 +17,20 @@ public struct JobActions: Sendable {
         try Self.start(job: job, runner: runner, paths: store.paths, trigger: .manual)
     }
 
+    /// Asks the run's runner to stop it, as Ctrl-C would: the runner stops the job's processes and
+    /// records the run as stopped by the user. Returns once the signal is sent, not when the run ends.
+    public func stop(_ id: String) throws {
+        guard let marker = store.running(id), Self.isRunner(marker.pid) else { throw ChoresError.notRunning(id) }
+        guard kill(marker.pid, SIGINT) == 0 else { throw ChoresError.notRunning(id) }
+    }
+
+    /// A marker's pid can be reused by an unrelated process of this user within the same boot.
+    static func isRunner(_ pid: Int32) -> Bool {
+        var name = [CChar](repeating: 0, count: 256)
+        guard proc_name(pid, &name, UInt32(name.count)) > 0 else { return false }
+        return String(cString: name) == "chores"
+    }
+
     public func turnOff(_ id: String) throws { try store.setDisabled(id, true) }
     public func turnOn(_ id: String) throws { try store.setDisabled(id, false) }
 

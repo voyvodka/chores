@@ -1253,6 +1253,26 @@
         }
       }
     },
+    "Stop": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Durdur"
+          }
+        }
+      }
+    },
+    "Stops the run; it is recorded as stopped by you and does not notify": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Çalışmayı durdurur; geçmişe senin durdurduğun bir çalışma olarak düşer ve bildirim göndermez"
+          }
+        }
+      }
+    },
     "Succeeded": {
       "localizations": {
         "tr": {
