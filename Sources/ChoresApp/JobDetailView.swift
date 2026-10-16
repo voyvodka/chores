@@ -142,16 +142,29 @@ struct JobDetailView: View {
         .pointerStyle(.link)
         .disabled(busy)
 
-        Button {
-            model?.runNow(id)
-        } label: {
-            Label("Run", systemImage: "play.fill")
-                .labelStyle(.titleAndIcon)
+        if job.isRunning {
+            Button {
+                model?.stop(id)
+            } label: {
+                Label("Stop", systemImage: "stop.fill")
+                    .labelStyle(.titleAndIcon)
+            }
+            .buttonStyle(.glass)
+            .pointerStyle(.link)
+            .disabled(busy)
+            .help("Stops the run; it is recorded as stopped by you and does not notify")
+        } else {
+            Button {
+                model?.runNow(id)
+            } label: {
+                Label("Run", systemImage: "play.fill")
+                    .labelStyle(.titleAndIcon)
+            }
+            .buttonStyle(.glassProminent)
+            .pointerStyle(.link)
+            .disabled(busy || job.definitionError != nil)
+            .help("Runs the job once now; it is recorded as manual")
         }
-        .buttonStyle(.glassProminent)
-        .pointerStyle(.link)
-        .disabled(busy || job.isRunning || job.definitionError != nil)
-        .help("Runs the job once now; it is recorded as manual")
     }
 
     private var historyTable: some View {

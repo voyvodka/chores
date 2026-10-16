@@ -190,7 +190,8 @@ it — say when its first scheduled run is and let that be the check.
 
 A job never runs twice at once: `chores run` or `chores start` on a job that is already running
 is refused (exit 2) and records nothing. Other commands: `chores start <id>` starts a run in the
-background (recorded as manual) and fails if the run does not start,
+background (recorded as manual) and fails if the run does not start, `chores stop <id>` stops a
+running run (recorded as a fail "Stopped by the user", never notified),
 `chores disable <id>` stops scheduling it until `chores enable <id>` (it survives logout and
 reboot; runs missed while off are not caught up, and an interval job runs one interval after it
 is turned back on), and `chores uninstall <id>` does the same as

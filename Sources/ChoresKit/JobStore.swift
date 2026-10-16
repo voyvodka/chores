@@ -33,6 +33,7 @@ public enum ChoresError: Error, CustomStringConvertible, Equatable {
     case alreadyRunning(String)
     /// The runner gave up before the job started; the message is what it reported.
     case startFailed(String, String)
+    case notRunning(String)
 
     public var description: String {
         switch self {
@@ -40,6 +41,7 @@ public enum ChoresError: Error, CustomStringConvertible, Equatable {
         case .invalidDefinition(let id, let errors): "job.json of \"\(id)\" is invalid: " + errors.joined(separator: "; ")
         case .alreadyRunning(let id): "\"\(id)\" is already running; a job never runs twice at once"
         case .startFailed(let id, let message): "\"\(id)\" did not start: \(message)"
+        case .notRunning(let id): "\"\(id)\" is not running"
         }
     }
 }

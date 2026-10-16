@@ -52,10 +52,13 @@ public struct RunRecord: Codable, Equatable, Sendable, Identifiable {
     public var trigger: Trigger
     /// The job's `version` when this run started.
     public var jobVersion: String?
+    /// Stopped on purpose (Stop in the app, `chores stop`, Ctrl-C), which is never notified.
+    public var stoppedByUser: Bool?
 
     public init(id: String, startedAt: Date, endedAt: Date, durationSeconds: Double, exitCode: Int32,
                 signal: Bool? = nil, timedOut: Bool? = nil, outcome: Outcome, summary: String? = nil,
-                report: String? = nil, log: String, trigger: Trigger, jobVersion: String? = nil) {
+                report: String? = nil, log: String, trigger: Trigger, jobVersion: String? = nil,
+                stoppedByUser: Bool? = nil) {
         self.id = id
         self.startedAt = startedAt
         self.endedAt = endedAt
@@ -69,6 +72,7 @@ public struct RunRecord: Codable, Equatable, Sendable, Identifiable {
         self.log = log
         self.trigger = trigger
         self.jobVersion = jobVersion
+        self.stoppedByUser = stoppedByUser
     }
 }
 

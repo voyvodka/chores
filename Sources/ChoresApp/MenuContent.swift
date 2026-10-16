@@ -140,7 +140,7 @@ struct MenuContent: View {
                     }
                     ForEach(group.jobs) { job in
                         JobCard(job: job, now: context.date, busy: model.busyJobIDs.contains(job.id),
-                                run: { model.runNow(job.id) }, open: { show(job.id) })
+                                run: { model.runNow(job.id) }, stop: { model.stop(job.id) }, open: { show(job.id) })
                     }
                 }
                 if groups.isEmpty {
@@ -327,15 +327,17 @@ struct JobCard: View {
     let now: Date
     let busy: Bool
     let run: () -> Void
+    let stop: () -> Void
     let open: () -> Void
     @State private var hovering: Bool
 
     init(job: JobSnapshot, now: Date, busy: Bool, hovering: Bool = false,
-         run: @escaping () -> Void, open: @escaping () -> Void) {
+         run: @escaping () -> Void, stop: @escaping () -> Void = {}, open: @escaping () -> Void) {
         self.job = job
         self.now = now
         self.busy = busy
         self.run = run
+        self.stop = stop
         self.open = open
         _hovering = State(initialValue: hovering)
     }
@@ -379,12 +381,14 @@ struct JobCard: View {
         }
         .accessibilityElement(children: .combine)
         .accessibilityAddTraits(.isButton)
-        .accessibilityAction(named: "Run Now") {
-            if !job.isRunning, !busy, job.definitionError == nil { run() }
+        .accessibilityAction(named: job.isRunning ? "Stop" : "Run Now") {
+            if busy { return }
+            if job.isRunning { stop() } else if job.definitionError == nil { run() }
         }
     }
 
     private var showsRunButton: Bool { hovering && !job.isRunning && !busy && job.definitionError == nil }
+    private var showsStopButton: Bool { hovering && job.isRunning && !busy }
 
     /// The next-run time always keeps its place; the run button and the spinner sit on top of it.
     private var trailing: some View {
@@ -394,7 +398,16 @@ struct JobCard: View {
             .opacity(showsRunButton || job.isRunning || busy ? 0 : 1)
             .frame(minWidth: 22, alignment: .trailing)
             .overlay(alignment: .trailing) {
-                if job.isRunning || busy {
+                if showsStopButton {
+                    Button(action: stop) {
+                        Image(systemName: "stop.fill")
+                    }
+                    .buttonStyle(.bordered)
+                    .buttonBorderShape(.circle)
+                    .controlSize(.mini)
+                    .help("Stop")
+                    .transition(.opacity)
+                } else if job.isRunning || busy {
                     ProgressView().controlSize(.mini)
                 } else if showsRunButton {
                     Button(action: run) {

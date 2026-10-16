@@ -76,8 +76,10 @@ struct MenuJobDetail: View {
                     .lineLimit(1)
             }
             Spacer(minLength: 4)
-            if job.isRunning || model.busyJobIDs.contains(job.id) {
+            if model.busyJobIDs.contains(job.id) {
                 ProgressView().controlSize(.small).frame(width: 28)
+            } else if job.isRunning {
+                PanelIconButton(systemImage: "stop.fill", help: "Stop") { model.stop(job.id) }
             } else {
                 PanelIconButton(systemImage: "play.fill", help: "Run Now") { model.runNow(job.id) }
                     .disabled(job.definitionError != nil)

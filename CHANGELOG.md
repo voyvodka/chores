@@ -9,6 +9,7 @@ update themselves to it.
 
 ### Added
 
+- Stop a running job: the stop button on a running job's card (on hover), on its menu page and in the window toolbar, or `chores stop <id>`. The run is recorded as a fail "Stopped by the user" and never notifies; Ctrl-C on `chores run` counts the same.
 - An app icon: a check over the coloured run strip, made in Icon Composer so macOS draws it in Liquid Glass and its dark, clear and tinted styles. It is compiled ahead of time (`scripts/compile-icon.sh`) and shown in Settings › About.
 
 ### Changed

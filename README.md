@@ -89,7 +89,7 @@ failure. [`skill/SKILL.md`](skill/SKILL.md) is the full contract.
 ```text
 chores list                        scheduler state, every job and its last run
 chores run <id>                    run a job now in this terminal and record it
-chores start|disable|enable <id>   the app's Run, Turn Off and Turn On
+chores start|stop|disable|enable <id>   the app's Run, Stop, Turn Off and Turn On
 chores delete-runs <id> <run-id>… | --all
 chores validate <id>               check a job.json
 chores install|uninstall <id>      hand a job to the scheduler, or take it away

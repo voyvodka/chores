@@ -13,11 +13,16 @@ public enum RunNotifier {
             guard let definition = job.definition else { return [] }
             return newRunIndices(job.runs, after: previous[job.id]).compactMap { index in
                 let run = job.runs[index]
-                guard run.endedAt > since, definition.notifyPolicy.shouldNotify(run.outcome),
-                      !isRepeat(run, earlier: job.runs[..<index]) else { return nil }
+                guard run.endedAt > since, deserves(run, policy: definition.notifyPolicy, earlier: job.runs[..<index])
+                else { return nil }
                 return (job, run)
             }
         }
+    }
+
+    /// The one rule for both the app and the runner's fallback.
+    public static func deserves(_ run: RunRecord, policy: NotifyPolicy, earlier: some BidirectionalCollection<RunRecord>) -> Bool {
+        run.stoppedByUser != true && policy.shouldNotify(run.outcome) && !isRepeat(run, earlier: earlier)
     }
 
     /// Indices of the runs after `seen`. A seen run no longer in the history (pruned or rewritten)

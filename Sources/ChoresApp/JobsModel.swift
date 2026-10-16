@@ -139,6 +139,7 @@ final class JobsModel {
 
 extension JobsModel {
     func runNow(_ id: String) { perform(id) { try $0.runNow(id) } }
+    func stop(_ id: String) { perform(id) { try $0.stop(id) } }
     func setEnabled(_ id: String, _ enabled: Bool) {
         perform(id) { enabled ? try $0.turnOn(id) : try $0.turnOff(id) }
     }

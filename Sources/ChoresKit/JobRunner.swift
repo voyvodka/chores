@@ -117,9 +117,12 @@ public struct JobRunner: Sendable {
         var (outcome, summary) = ResultFile.resolve(exitCode: process.terminationStatus, signal: signal,
                                                     timedOut: timedOut.value != nil, timeoutSeconds: job.timeoutSeconds,
                                                     result: result)
+        // SIGINT comes from a person (Stop, `chores stop`, Ctrl-C); launchd and the scheduler send SIGTERM.
+        let byUser = stoppedBy.value == Int(SIGINT) && timedOut.value == nil
         if let stopped = stoppedBy.value, timedOut.value == nil {
             outcome = .fail
-            summary = "Stopped (signal \(stopped): the job was turned off or reinstalled, or the session ended)"
+            summary = byUser ? "Stopped by the user"
+                : "Stopped (signal \(stopped): the job was turned off or reinstalled, or the session ended)"
         }
         let report = resolveReport(result?.report, reportDir: reportDir, jobDir: jobDir, since: startedAt)
 
@@ -127,7 +130,8 @@ public struct JobRunner: Sendable {
                                durationSeconds: endedAt.timeIntervalSince(startedAt),
                                exitCode: process.terminationStatus, signal: signal ? true : nil,
                                timedOut: timedOut.value != nil ? true : nil, outcome: outcome, summary: summary,
-                               report: report, log: logRelative, trigger: trigger, jobVersion: job.version)
+                               report: report, log: logRelative, trigger: trigger, jobVersion: job.version,
+                               stoppedByUser: byUser ? true : nil)
         try store.append(record, to: jobID)
         store.prune(jobID)
         return record

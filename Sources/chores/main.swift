@@ -12,6 +12,7 @@ usage: chores <command> [arguments]
   uninstall <id>    Stop scheduling the job; the job folder is kept
   start <id>        Start a run now in the background, recorded as manual (the app's button);
                     fails when the job is already running or the run does not start
+  stop <id>         Stop the job's running run, recorded as stopped by the user (no notification)
   disable <id>      Stop scheduling the job until enabled again
   enable <id>       Schedule a disabled job again
   retire <label>    Unload a pre-Chores launch agent and move its plist to the retired folder
@@ -46,9 +47,8 @@ func requireJobID(_ args: [String]) -> String {
 
 /// The app delivers its own notifications for new runs; this is the fallback when it is not open.
 func notifyIfNeeded(_ job: JobDefinition, _ record: RunRecord) {
-    guard job.notifyPolicy.shouldNotify(record.outcome) else { return }
     let earlier = store.runs(job.id).filter { $0.id != record.id }
-    guard !RunNotifier.isRepeat(record, earlier: earlier) else { return }
+    guard RunNotifier.deserves(record, policy: job.notifyPolicy, earlier: earlier) else { return }
     guard NSRunningApplication.runningApplications(withBundleIdentifier: ChoresPaths.appBundleIdentifier).isEmpty else {
         return
     }
@@ -296,12 +296,13 @@ case "run": runCommand(requireJobID(args))
 case "install": install(requireJobID(args))
 case "uninstall": uninstall(requireJobID(args))
 case "retire": retire(requireArgument(args, "label"))
-case "start", "disable", "enable":
+case "start", "stop", "disable", "enable":
     let id = requireJobID(args)
     let actions = JobActions(store: store)
     do {
         switch args[1] {
         case "start": try actions.runNow(id)
+        case "stop": try actions.stop(id)
         case "disable": try actions.turnOff(id)
         default: try actions.turnOn(id)
         }
