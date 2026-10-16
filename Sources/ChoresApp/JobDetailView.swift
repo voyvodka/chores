@@ -19,7 +19,7 @@ struct JobDetailView: View {
     }
 
     private var tableSelection: Binding<Set<String>> {
-        Binding(get: { selection.isEmpty ? Set(recentRuns.prefix(1).map(\.id)) : selection },
+        Binding(get: { selection.isEmpty && job.running == nil ? Set(recentRuns.prefix(1).map(\.id)) : selection },
                 set: { selection = $0 })
     }
 
@@ -68,15 +68,24 @@ struct JobDetailView: View {
                         .padding(.horizontal, 20)
                         .padding(.bottom, 20)
                 }
+            } else if recentRuns.isEmpty, let running = job.running {
+                LiveLogView(jobID: job.id, marker: running, store: store)
             } else if recentRuns.isEmpty {
                 ContentUnavailableView("No Runs Yet", systemImage: "clock",
                                        description: Text("History, report and log appear here after the first run."))
+                    .frame(maxHeight: .infinity)
             } else {
                 VSplitView {
                     historyTable
                         .frame(minHeight: 120, idealHeight: 200)
-                    RunOutputView(job: job, run: selectedRun, store: store)
-                        .frame(minHeight: 200)
+                    // Until a past run is picked, a running job shows what it is writing now.
+                    if selection.isEmpty, let running = job.running {
+                        LiveLogView(jobID: job.id, marker: running, store: store)
+                            .frame(minHeight: 200)
+                    } else {
+                        RunOutputView(job: job, run: selectedRun, store: store)
+                            .frame(minHeight: 200)
+                    }
                 }
             }
         }
@@ -84,6 +93,9 @@ struct JobDetailView: View {
         // Liquid Glass. This only works because the sidebar is permanent: while it animated open,
         // AppKit pushed toolbar items into the overflow menu (screen-recorded 2026-09-24). The
         // schedule stays in the content so the toolbar fits at the narrowest window width.
+        .onChange(of: job.running?.runID) { _, started in
+            if started != nil { selection = [] }
+        }
         .confirmationDialog(deleteTitle, isPresented: Binding(get: { pendingDelete != nil },
                                                                set: { if !$0 { pendingDelete = nil } })) {
             Button("Delete", role: .destructive) {
@@ -390,5 +402,59 @@ struct RunOutputView: View {
         }
         let options = AttributedString.MarkdownParsingOptions(interpretedSyntax: .inlineOnlyPreservingWhitespace)
         return (try? AttributedString(markdown: lines.joined(separator: "\n"), options: options)) ?? AttributedString(text)
+    }
+}
+
+/// The running run's log, read again every second while it is shown and kept scrolled to its end.
+struct LiveLogView: View {
+    let jobID: String
+    let marker: RunningMarker
+    let store: JobStore
+    var compact = false
+
+    @State private var text = ""
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: 0) {
+            HStack(spacing: 6) {
+                ProgressView().controlSize(.mini)
+                TimelineView(.periodic(from: marker.startedAt, by: 1)) { context in
+                    Text("Running for \(Fmt.duration(context.date.timeIntervalSince(marker.startedAt)))")
+                        .monospacedDigit()
+                }
+                .font(compact ? .caption : .callout)
+                .foregroundStyle(.secondary)
+                Spacer()
+                Button("Open File") {
+                    NSWorkspace.shared.open(store.paths.jobDirectory(jobID).appending(path: marker.log))
+                }
+                .buttonStyle(.link)
+                .pointerStyle(.link)
+            }
+            .padding(.horizontal, compact ? 10 : 12)
+            .padding(.vertical, 8)
+            Divider()
+            ScrollView {
+                Text(text.isEmpty ? String(localized: "(nothing logged yet)") : text)
+                    .font(.system(compact ? .caption2 : .callout, design: .monospaced))
+                    .foregroundStyle(text.isEmpty ? .secondary : .primary)
+                    .textSelection(.enabled)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .padding(compact ? 10 : 12)
+            }
+            // Short logs start at the top; as lines arrive the view follows the end.
+            .defaultScrollAnchor(.top, for: .alignment)
+            .defaultScrollAnchor(.bottom, for: .initialOffset)
+            .defaultScrollAnchor(.bottom, for: .sizeChanges)
+        }
+        .task(id: marker.runID) {
+            while !Task.isCancelled {
+                let (store, jobID, log) = (store, jobID, marker.log)
+                let latest = await Task.detached { store.logTail(jobID, log: log) ?? "" }.value
+                guard !Task.isCancelled else { return }
+                if latest != text { text = latest }
+                try? await Task.sleep(for: .seconds(1))
+            }
+        }
     }
 }

@@ -78,6 +78,9 @@ public struct RunRecord: Codable, Equatable, Sendable, Identifiable {
 
 /// `running.json`, present while a run is in progress.
 public struct RunningMarker: Codable, Equatable, Sendable {
+    /// The log the run is writing, relative to the job folder; its record gets the same path.
+    public var log: String { RunRecord.logPath(runID: runID) }
+
     public var runID: String
     public var pid: Int32
     public var startedAt: Date
@@ -100,4 +103,8 @@ public struct RunningMarker: Codable, Equatable, Sendable {
         if let boot, boot != Scheduler.currentBoot { return false }
         return kill(pid, 0) == 0
     }
+}
+
+extension RunRecord {
+    public static func logPath(runID: String) -> String { "logs/\(runID).log" }
 }

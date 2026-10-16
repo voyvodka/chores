@@ -6,6 +6,18 @@ struct MainWindow: View {
     static let id = "main"
 
     @Bindable var model: JobsModel
+    @State private var query = ""
+
+    /// Matches title, id, description, category and the last run's summary, ignoring case and accents.
+    private var shownJobs: [JobSnapshot] {
+        let query = query.trimmingCharacters(in: .whitespaces)
+        guard !query.isEmpty else { return model.jobs }
+        return model.jobs.filter { job in
+            [job.title, job.id, job.definition?.summary, job.definition?.category.map(Fmt.category), job.lastRun?.summary]
+                .compactMap { $0 }
+                .contains { $0.localizedStandardContains(query) }
+        }
+    }
 
     var body: some View {
         // The sidebar is always shown and cannot be toggled: while it animated open, AppKit pushed
@@ -13,7 +25,7 @@ struct MainWindow: View {
         // detail content off the window's edge (screen-recorded 2026-09-24).
         NavigationSplitView(columnVisibility: .constant(.all)) {
             List(selection: $model.selectedJobID) {
-                ForEach(JobOverview.grouped(model.jobs), id: \.category) { group in
+                ForEach(JobOverview.grouped(shownJobs), id: \.category) { group in
                     Section(Fmt.category(group.category)) {
                         ForEach(group.jobs) { job in
                             SidebarRow(job: job).tag(job.id)
@@ -22,6 +34,10 @@ struct MainWindow: View {
                 }
             }
             .listStyle(.sidebar)
+            .searchable(text: $query, placement: .sidebar, prompt: "Search Jobs")
+            .overlay {
+                if shownJobs.isEmpty, !query.isEmpty { ContentUnavailableView.search(text: query) }
+            }
             .navigationSplitViewColumnWidth(min: SplitLimits.sidebarMin, ideal: 240, max: SplitLimits.sidebarMax)
             .toolbar(removing: .sidebarToggle)
             .background(SplitLimits())
