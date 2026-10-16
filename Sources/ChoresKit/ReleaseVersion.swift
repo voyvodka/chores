@@ -1,6 +1,5 @@
 import Foundation
 
-/// A release tag `vMAJOR.MINOR.PATCH`, as the self-updater compares them.
 public struct ReleaseVersion: Comparable, Hashable, Sendable, CustomStringConvertible {
     public let major: Int
     public let minor: Int

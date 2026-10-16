@@ -2,7 +2,6 @@ import ChoresKit
 import SwiftUI
 
 enum Fmt {
-    /// Follows the app's language (Settings › Language) and the user's region.
     static var locale: Locale { .autoupdatingCurrent }
 
     /// The language the app's strings resolved to; `ChoresKit` texts are built in the same one.

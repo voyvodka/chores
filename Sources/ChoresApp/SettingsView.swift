@@ -2,7 +2,6 @@ import AppKit
 import ChoresKit
 import SwiftUI
 
-/// The Settings window (⌘, or ⋯ › Settings…).
 struct SettingsView: View {
     let model: JobsModel
     /// `--settings-tab <name>` opens another tab, for screenshots.

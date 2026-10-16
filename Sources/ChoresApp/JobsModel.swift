@@ -162,7 +162,6 @@ extension JobsModel {
         }
     }
 
-    /// `nil` deletes the whole history.
     func deleteRuns(_ id: String, _ runIDs: Set<String>?) {
         perform(id) { try $0.deleteRuns(id, runIDs: runIDs) }
     }
