@@ -277,7 +277,12 @@ public struct JobStore: Sendable {
 
     /// Last `maxBytes` of a run's log, trimmed to whole lines.
     public func logTail(_ id: String, run: RunRecord, maxBytes: Int = 64 * 1024) -> String? {
-        let url = paths.jobDirectory(id).appending(path: run.log)
+        logTail(id, log: run.log, maxBytes: maxBytes)
+    }
+
+    /// The same for a log given by its path in the job folder, such as a running run's.
+    public func logTail(_ id: String, log: String, maxBytes: Int = 64 * 1024) -> String? {
+        let url = paths.jobDirectory(id).appending(path: log)
         guard let handle = try? FileHandle(forReadingFrom: url) else { return nil }
         defer { try? handle.close() }
         let size = (try? handle.seekToEnd()) ?? 0

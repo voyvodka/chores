@@ -13,6 +13,8 @@ struct MenuJobDetail: View {
     @AppStorage(AppSettings.detailTab) private var tab: DetailTab = .history
 
     private var recentRuns: [RunRecord] { Array(job.runs.suffix(5).reversed()) }
+    /// Until a past run is picked, a running job shows what it is writing now.
+    private var showsLive: Bool { selectedRunID == nil && job.running != nil }
     private var selectedRun: RunRecord? {
         job.runs.first { $0.id == selectedRunID } ?? job.runs.last
     }
@@ -48,17 +50,26 @@ struct MenuJobDetail: View {
         stats
         RunStrip(outcomes: JobStats.strip(job.runs, count: 24), cell: 9)
             .frame(maxWidth: .infinity, alignment: .leading)
-        if job.runs.isEmpty {
+        if job.runs.isEmpty, job.running == nil {
             Text("No runs yet. History and reports appear here after the first run.")
                 .font(.callout)
                 .foregroundStyle(.secondary)
                 .frame(maxWidth: .infinity, minHeight: 120)
         } else {
-            runList
-            RunOutputView(job: job, run: selectedRun, store: model.store, compact: true)
-                .frame(height: min(210, max(120, MenuLayout.maxDetailBody - 190)))
-                .background(.fill.quinary, in: .rect(cornerRadius: 12))
-                .clipShape(.rect(cornerRadius: 12))
+            if !job.runs.isEmpty { runList }
+            Group {
+                if showsLive, let running = job.running {
+                    LiveLogView(jobID: job.id, marker: running, store: model.store, compact: true)
+                } else {
+                    RunOutputView(job: job, run: selectedRun, store: model.store, compact: true)
+                }
+            }
+            .frame(height: min(210, max(120, MenuLayout.maxDetailBody - 190)))
+            .background(.fill.quinary, in: .rect(cornerRadius: 12))
+            .clipShape(.rect(cornerRadius: 12))
+            .onChange(of: job.running?.runID) { _, started in
+                if started != nil { selectedRunID = nil }
+            }
         }
     }
 
@@ -126,7 +137,7 @@ struct MenuJobDetail: View {
                     .font(.caption)
                     .padding(.horizontal, 8)
                     .frame(height: 24)
-                    .background(run.id == selectedRun?.id ? AnyShapeStyle(.fill.tertiary) : AnyShapeStyle(.clear),
+                    .background(run.id == selectedRun?.id && !showsLive ? AnyShapeStyle(.fill.tertiary) : AnyShapeStyle(.clear),
                                 in: .rect(cornerRadius: 7))
                     .contentShape(.rect(cornerRadius: 7))
                 }

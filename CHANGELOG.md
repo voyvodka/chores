@@ -9,6 +9,8 @@ update themselves to it.
 
 ### Added
 
+- A running job's log is shown live, followed to its end, in the window and on its menu page until a past run is picked.
+- Search in the window's sidebar: by title, id, description, category or the last run's summary, ignoring case and accents.
 - Stop a running job: the stop button on a running job's card (on hover), on its menu page and in the window toolbar, or `chores stop <id>`. The run is recorded as a fail "Stopped by the user" and never notifies; Ctrl-C on `chores run` counts the same.
 - An app icon: a check over the coloured run strip, made in Icon Composer so macOS draws it in Liquid Glass and its dark, clear and tinted styles. It is compiled ahead of time (`scripts/compile-icon.sh`) and shown in Settings › About.
 
@@ -19,6 +21,7 @@ update themselves to it.
 
 ### Fixed
 
+- A job without runs no longer shows its header in the middle of the window.
 - Settings tabs no longer rubber-band and flash a scroller when their content fits the window.
 
 ## [1.0.1] - 2026-10-16

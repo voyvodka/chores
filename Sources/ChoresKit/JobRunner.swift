@@ -29,7 +29,7 @@ public struct JobRunner: Sendable {
         let startedAt = now()
         let runID = Self.makeRunID(startedAt)
         try fm.createDirectory(at: paths.logsDirectory(jobID), withIntermediateDirectories: true)
-        let logRelative = "logs/\(runID).log"
+        let logRelative = RunRecord.logPath(runID: runID)
         let logURL = jobDir.appending(path: logRelative)
         fm.createFile(atPath: logURL.path, contents: nil)
         let resultURL = fm.temporaryDirectory.appending(path: "chores-\(jobID)-\(runID).result")
