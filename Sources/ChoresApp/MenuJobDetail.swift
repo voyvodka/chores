@@ -13,7 +13,6 @@ struct MenuJobDetail: View {
     @AppStorage(AppSettings.detailTab) private var tab: DetailTab = .history
 
     private var recentRuns: [RunRecord] { Array(job.runs.suffix(5).reversed()) }
-    /// Until a past run is picked, a running job shows what it is writing now.
     private var showsLive: Bool { selectedRunID == nil && job.running != nil }
     private var selectedRun: RunRecord? {
         job.runs.first { $0.id == selectedRunID } ?? job.runs.last

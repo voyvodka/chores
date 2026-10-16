@@ -78,7 +78,6 @@ struct JobDetailView: View {
                 VSplitView {
                     historyTable
                         .frame(minHeight: 120, idealHeight: 200)
-                    // Until a past run is picked, a running job shows what it is writing now.
                     if selection.isEmpty, let running = job.running {
                         LiveLogView(jobID: job.id, marker: running, store: store)
                             .frame(minHeight: 200)
@@ -411,7 +410,6 @@ struct RunOutputView: View {
     }
 }
 
-/// The running run's log, read again every second while it is shown and kept scrolled to its end.
 struct LiveLogView: View {
     let jobID: String
     let marker: RunningMarker
