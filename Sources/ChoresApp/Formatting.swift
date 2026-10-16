@@ -18,7 +18,6 @@ enum Fmt {
         return rate.formatted(.percent.precision(.fractionLength(0)).locale(locale))
     }
 
-    /// The skill's four categories and "Other" are translated; a job's own word is shown as written.
     static func category(_ category: String) -> String {
         switch category {
         case JobOverview.uncategorized: String(localized: "Other")

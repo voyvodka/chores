@@ -1,8 +1,6 @@
 import Foundation
 import IOKit.pwr_mgt
 
-/// Measures how long the Mac slept during a run: lid closed, a sleep the user chose, or an idle
-/// sleep the assertion did not hold off.
 struct SleepMeter {
     // Both clocks tick the same way; only the first keeps counting while the Mac is asleep.
     private let total = clock_gettime_nsec_np(CLOCK_MONOTONIC_RAW)
@@ -17,9 +15,7 @@ struct SleepMeter {
     }
 }
 
-/// Holds off idle sleep while a job runs, so a run started just before the Mac would doze off
-/// finishes instead of freezing until the next wake. The display still sleeps, and closing the lid
-/// still sleeps the Mac.
+/// Only idle sleep: the display still sleeps, and closing the lid still sleeps the Mac.
 struct IdleSleepAssertion {
     private var id = IOPMAssertionID(0)
     private let held: Bool

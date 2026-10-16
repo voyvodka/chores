@@ -8,7 +8,6 @@ struct MainWindow: View {
     @Bindable var model: JobsModel
     @State private var query = ""
 
-    /// Matches title, id, description, category and the last run's summary, ignoring case and accents.
     private var shownJobs: [JobSnapshot] {
         let query = query.trimmingCharacters(in: .whitespaces)
         guard !query.isEmpty else { return model.jobs }
