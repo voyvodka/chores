@@ -26,6 +26,8 @@ struct SettingsView: View {
         }
         .frame(width: 500)
         .fixedSize(horizontal: false, vertical: true)
+        // The window fits each tab, but a grouped Form still rubber-bands and flashes a scroller.
+        .scrollBounceBehavior(.basedOnSize)
         .onAppear {
             guard !JobsModel.isSnapshot else { return }
             model.refreshLoginItemStatus()

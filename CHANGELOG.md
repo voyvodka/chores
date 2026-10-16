@@ -7,6 +7,10 @@ update themselves to it.
 
 ## [Unreleased]
 
+### Fixed
+
+- Settings tabs no longer rubber-band and flash a scroller when their content fits the window.
+
 ## [1.0.1] - 2026-10-16
 
 ### Fixed
