@@ -1,0 +1,51 @@
+{
+  "id": "inbox-watch",
+  "title": "Gelen kutusu",
+  "summary": "Bağlı Gmail kutusuna son çalışmadan beri gelen mailleri claude -p ile okur ve yalnızca gerçekten aksiyon gerektirenleri Gmail linkleriyle raporlar.",
+  "command": ["/usr/bin/python3", "inbox.py", "run"],
+  "schedule": {
+    "calendar": [
+      { "hour": 9, "minute": 0 },
+      { "hour": 17, "minute": 0 }
+    ]
+  },
+  "timeoutSeconds": 1800,
+  "reportDirectory": "reports",
+  "notify": "problems",
+  "permissions": "Gmail: yalnızca okuma (gmail.readonly); mail silmez, taşımaz, okundu yapmaz. Claude: hiçbir aracı yok (--tools \"\"), safe mode'da çalışır; sadece stdin'den verilen mail metnini sınıflandırır. Google anahtarları Keychain'de (chores.inbox-watch).",
+  "notes": [
+    "Kurulum ve yeniden bağlanma: Chores deposunda templates/inbox-watch/setup.sh (Gmail düştüyse: setup.sh --reconnect).",
+    "Aksiyon yoksa sonuç ok ve bildirim gelmez; aksiyon varsa warn ve bildirim gelir. Rapor: reports/YYYY-MM-DD-HHMM.md.",
+    "Her çalışma son başarılı çalışmadan beri gelenleri okur (ilk çalışma son 24 saat). Gelen kutusu ve spam okunur; promosyon ve sosyal sekmeleri atlanır.",
+    "Claude'a her mailin başlıkları ve temizlenmiş metninin ilk 2000 karakteri gider (config.json › maxChars).",
+    "Model config.json › model (varsayılan haiku). Kişisel tercihler rules.md'de; setup onu hiç ezmez.",
+    "Claude hesapları config.json › accounts sırasıyla denenir; ilk yanıt veren kullanılır. Hiçbiri yanıt vermezse o mailler bir sonraki çalışmada tekrar okunur."
+  ],
+  "createdBy": "claude-code",
+  "createdAt": "2026-09-27T16:30:40Z",
+  "version": "1.1.1",
+  "changelog": [
+    {
+      "version": "1.1.1",
+      "date": "2026-09-27",
+      "notes": ["Rapordaki Gmail linkleri hesabı ?authuser= ile seçer; /u/<e-posta>/ biçimi Gmail'de \"Temporary Error (404)\" veriyordu."]
+    },
+    {
+      "version": "1.1.0",
+      "date": "2026-09-27",
+      "notes": ["Claude'un düşünme modu kapatıldı: ilk gerçek çalışmada maliyetin ~%85'i buydu ve daha fazla gürültü işaretliyordu.", "Aynı yazışmadaki mailler tek satır olur (en yenisi okunur)."]
+    },
+    {
+      "version": "1.0.0",
+      "date": "2026-09-27",
+      "notes": ["İlk sürüm: günde iki kez gelen kutusu ve spam taraması, yalnızca aksiyon gerektiren mailler raporlanır."]
+    }
+  ],
+  "category": "izleme",
+  "requires": ["/usr/bin/python3"],
+  "links": [
+    { "title": "Gmail", "url": "https://mail.google.com/" },
+    { "title": "Google Auth Platform", "url": "https://console.cloud.google.com/auth/overview" },
+    { "title": "Raporlar", "url": "~/.local/share/chores/jobs/inbox-watch/reports" }
+  ]
+}
