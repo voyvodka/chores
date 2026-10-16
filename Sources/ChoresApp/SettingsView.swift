@@ -180,12 +180,9 @@ private struct AboutSettings: View {
         Form {
             Section {
                 HStack(spacing: 14) {
-                    // The app has no icon of its own yet; the menu-bar symbol stands in for it.
-                    Image(systemName: "checklist")
-                        .font(.system(size: 28, weight: .medium))
-                        .foregroundStyle(.white)
-                        .frame(width: 56, height: 56)
-                        .background(Color.accentColor.gradient, in: .rect(cornerRadius: 13))
+                    Image(nsImage: NSApp.applicationIconImage)
+                        .resizable()
+                        .frame(width: 64, height: 64)
                         .accessibilityHidden(true)
                     VStack(alignment: .leading, spacing: 2) {
                         Text(verbatim: "Chores").font(.title2.weight(.semibold))

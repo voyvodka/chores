@@ -7,6 +7,10 @@ update themselves to it.
 
 ## [Unreleased]
 
+### Added
+
+- An app icon: a check over the coloured run strip, made in Icon Composer so macOS draws it in Liquid Glass and its dark, clear and tinted styles. It is compiled ahead of time (`scripts/compile-icon.sh`) and shown in Settings › About.
+
 ### Fixed
 
 - Settings tabs no longer rubber-band and flash a scroller when their content fits the window.

@@ -1,4 +1,8 @@
-# Chores
+<p align="center">
+  <img src="docs/images/icon.png" width="128" alt="">
+</p>
+
+<h1 align="center">Chores</h1>
 
 **A native macOS menu-bar app that schedules, records and watches your background jobs** — the
 nightly backups, hourly syncs and daily `claude -p` checks that pile up as scattered launchd
@@ -126,6 +130,7 @@ swift build && swift test
 .build/debug/ChoresApp --show-menu-preview    # the menu panel in a window, without installing
 .build/debug/ChoresApp --show-window          # add CHORES_HOME=<folder> for test data
 scripts/sync-strings.sh                       # bring the string catalog in line with the code
+scripts/compile-icon.sh                       # after editing assets/Chores.icon in Icon Composer
 ```
 
 The package has three products: `ChoresKit` (the job contract and all logic, UI-free and unit

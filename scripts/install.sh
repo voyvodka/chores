@@ -35,6 +35,9 @@ command cp -f .build/release/chores "$BUNDLE/Contents/MacOS/chores"
 # is the source language, but macOS lists only localizations that exist as folders.
 mkdir -p "$BUNDLE/Contents/Resources/en.lproj"
 command cp -R .build/release/Chores_ChoresApp.bundle/Contents/Resources/*.lproj "$BUNDLE/Contents/Resources/"
+# The icon is compiled ahead of time (scripts/compile-icon.sh): Assets.car carries the Liquid Glass
+# icon, Chores.icns the fallback for places that read only CFBundleIconFile.
+command cp -f assets/prebuilt/Assets.car assets/prebuilt/Chores.icns "$BUNDLE/Contents/Resources/"
 mkdir -p "$BUNDLE/Contents/Library/LaunchAgents"
 cat >"$BUNDLE/Contents/Library/LaunchAgents/dev.voyvodka.chores.scheduler.plist" <<AGENT
 <?xml version="1.0" encoding="UTF-8"?>
@@ -70,6 +73,8 @@ cat >"$BUNDLE/Contents/Info.plist" <<PLIST
   <key>CFBundleLocalizations</key><array><string>en</string><string>tr</string></array>
   <key>CFBundleExecutable</key><string>ChoresApp</string>
   <key>CFBundlePackageType</key><string>APPL</string>
+  <key>CFBundleIconFile</key><string>Chores</string>
+  <key>CFBundleIconName</key><string>Chores</string>
   <key>CFBundleShortVersionString</key><string>$VERSION</string>
   <key>CFBundleVersion</key><string>$BUILD</string>
   <key>ChoresVersion</key><string>$DESCRIBE</string>
