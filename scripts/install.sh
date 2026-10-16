@@ -84,7 +84,8 @@ PLIST
 codesign --force --sign - "$BUNDLE/Contents/MacOS/chores"
 codesign --force --sign - "$BUNDLE"
 
-pkill -x ChoresApp 2>/dev/null || true
+# -a: during a self-update this script descends from the app, and pkill skips its own ancestors.
+pkill -a -x ChoresApp 2>/dev/null || true
 mkdir -p "$APP_DIR"
 # Keep the old bundle until the new one is in place, so a failed move leaves a working app.
 OLD="$STAGE/Chores.old.app"
