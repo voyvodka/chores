@@ -76,7 +76,7 @@ When code and documents disagree, raise it — do not silently follow one of the
   refuses notification permission to bundles LaunchServices has not registered.
 - **Public-ready repo.** No absolute home paths, hostnames, tokens, workplace references or real
   job names in tracked files; use `$HOME` / `FileManager.default.homeDirectoryForCurrentUser`.
-  Commits use the `voyvodka` noreply identity.
+  Commits use the owner's global `voyvodka` git identity, not the GitHub noreply address.
 - **UI strings are English source, translated in `Sources/ChoresApp/Resources/Localizable.xcstrings`.**
   Write them as `Text("…")`, `LocalizedStringKey` parameters or `String(localized:)`; never a
   translated literal in code. After adding or changing one, run `scripts/sync-strings.sh` and fill
