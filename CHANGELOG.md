@@ -7,6 +7,10 @@ update themselves to it.
 
 ## [Unreleased]
 
+### Changed
+
+- Contributor docs: commits use the owner's global `voyvodka` git identity instead of the GitHub noreply address.
+
 ## [1.1.0] - 2026-10-16
 
 ### Added
