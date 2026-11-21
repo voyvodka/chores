@@ -21,7 +21,7 @@ too live in `templates/<id>/` with their own `setup.sh` (decision "Paylaşılan 
 | Scheduler | One agent embedded in Chores.app (`dev.voyvodka.chores.scheduler`, `chores scheduler`) | One "Chores" row in Login Items › Background App Activity instead of one per job |
 | App | SwiftUI `MenuBarExtra` + `Window`, AppKit where SwiftUI falls short; macOS 26+ | Menu bar + detail window; `LSUIElement` app; Liquid Glass only through system controls (toolbar, bordered buttons, segmented pickers) |
 | Packaging | `swift build` + script-built `.app`, ad-hoc signed, installed to `~/Applications` | Verified by a spike: notifications work and permission survives rebuilds |
-| Job authoring | Claude Code skill in `skill/`, symlinked into each Claude account's skills dir | Jobs are created by Claude Code, never by the app |
+| Job authoring | Claude Code skill in `skill/`, symlinked into the Claude Code skills dir | Jobs are created by Claude Code, never by the app |
 
 Reasoning in full: `devdocs/product/02-decisions.md`. Do not swap a
 component without reading its "Elenenler" line — the alternatives were considered and rejected.
