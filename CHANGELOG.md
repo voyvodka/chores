@@ -7,6 +7,10 @@ update themselves to it.
 
 ## [Unreleased]
 
+### Fixed
+
+- The skill and the `inbox-watch` template no longer rely on `MAX_THINKING_TOKENS=0`, which the 5.5 and Fable models ignore; `claude -p` judging jobs run with `--effort low` instead.
+
 ### Changed
 
 - Contributor docs: commits use the owner's global `voyvodka` git identity instead of the GitHub noreply address.
