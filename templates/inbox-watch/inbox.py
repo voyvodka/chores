@@ -412,11 +412,10 @@ def classify(config, mails):
         env.pop("CLAUDE_CONFIG_DIR", None)
         if account.get("configDir"):
             env["CLAUDE_CONFIG_DIR"] = account["configDir"]
-        # Claude Code thinks by default; on nine mails that was 12k tokens, ~85% of the cost, and
-        # flagged more noise than the same model answering directly.
+        # 5.5 and Fable models ignore MAX_THINKING_TOKENS=0 (thinking can't be off); --effort low keeps it short.
         env["MAX_THINKING_TOKENS"] = "0"
         cmd = [config["claude"], "-p", "--model", config.get("model", DEFAULT_MODEL),
-               "--system-prompt", system,
+               "--effort", "low", "--system-prompt", system,
                # No tools: the mails are untrusted text, and a model that can act could be steered
                # by one. Safe mode keeps hooks and plugins (claude-mem) from recording them.
                "--tools", "", "--safe-mode", "--no-session-persistence", "--output-format", "json"]

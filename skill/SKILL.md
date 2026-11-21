@@ -159,9 +159,10 @@ printf 'report %s\n' "$CHORES_REPORT_DIR/$(date +%F).md" >>"$CHORES_RESULT"
 `--no-session-persistence` and a per-attempt timeout as well as `timeoutSeconds`:
 
 - **The script gathers the data, Claude only judges it** (classify, summarise): `--tools ""
-  --safe-mode --output-format json`, the instructions in `--system-prompt`, and
-  `MAX_THINKING_TOKENS=0` in the environment. No tools means nothing to permit; `--safe-mode` keeps
-  hooks and plugins from recording the job's sessions; thinking off is most of the cost saved.
+  --safe-mode --output-format json --effort low` and the instructions in `--system-prompt`. No
+  tools means nothing to permit; `--safe-mode` keeps hooks and plugins from recording the job's
+  sessions; `--effort low` keeps thinking short, which is most of the cost saved. Thinking cannot be
+  turned off on the 5.5 and Fable models: `MAX_THINKING_TOKENS=0` is ignored there.
   `templates/inbox-watch/` in the Chores repository is a worked example.
 - **Claude has to act** (read files, call `gh`): `--permission-mode dontAsk` with a minimal
   `--allowedTools` list.

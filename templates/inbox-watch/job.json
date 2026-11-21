@@ -33,8 +33,15 @@
   ],
   "createdBy": "claude-code",
   "createdAt": "2026-09-27T16:30:40Z",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "changelog": [
+    {
+      "version": "1.2.1",
+      "date": "2026-11-21",
+      "notes": [
+        "Claude runs with --effort low: the 5.5 models ignore MAX_THINKING_TOKENS=0, so thinking was back on."
+      ]
+    },
     {
       "version": "1.2.0",
       "date": "2026-10-16",
