@@ -64,7 +64,7 @@ When code and documents disagree, raise it — do not silently follow one of the
 - **Iterate on the UI with the debug build, install once at the end.** `.build/debug/ChoresApp
   --show-menu-preview` (add `--menu-detail <id>`) or `--show-window`, with `CHORES_HOME=<test root>`,
   opens real windows with Liquid Glass and motion; an unbundled run skips notifications, the login
-  item and scheduler registration (`JobsModel.isInstalledBundle`), so it no longer crashes. Stop it
+  item and scheduler registration (`JobsModel.isInstalledBundle`). Stop it
   by its PID. Leave the installed app alone: do not quit or relaunch it to test, because every
   `scripts/install.sh` swaps the bundle and re-registers the scheduler. Check motion with a recording
   of that one window (`screencapture -v -l <window id>`); `--snapshot` shows neither glass nor
