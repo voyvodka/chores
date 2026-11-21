@@ -156,7 +156,8 @@ printf 'report %s\n' "$CHORES_REPORT_DIR/$(date +%F).md" >>"$CHORES_RESULT"
 - Idempotent where possible: a missed calendar run is replayed once after wake.
 
 **A job that runs `claude -p`:** pick one of two shapes, always with an explicit `--model`,
-`--no-session-persistence` and a per-attempt timeout as well as `timeoutSeconds`:
+`--no-session-persistence`, `--strict-mcp-config` and a per-attempt timeout as well as
+`timeoutSeconds`:
 
 - **The script gathers the data, Claude only judges it** (classify, summarise): `--tools ""
   --safe-mode --output-format json --effort low` and the instructions in `--system-prompt`. No
@@ -166,6 +167,14 @@ printf 'report %s\n' "$CHORES_REPORT_DIR/$(date +%F).md" >>"$CHORES_RESULT"
   `templates/inbox-watch/` in the Chores repository is a worked example.
 - **Claude has to act** (read files, call `gh`): `--permission-mode dontAsk` with a minimal
   `--allowedTools` list.
+
+`--strict-mcp-config` keeps the job off every MCP server the user has connected (user scope,
+plugins, claude.ai connectors, and the `.mcp.json` of a repository the script `cd`s into); a job
+that needs one server passes it alone with `--mcp-config`. Without it each run connects to all of
+them, and the shapes above can turn that into a full load of every MCP tool schema: `--tools`
+does not cover MCP tools, and with `--tools ""` or a `--tools` list that leaves out `ToolSearch`
+the tools are no longer deferred (measured with Haiku 5.5: `--tools ""` 186K input tokens,
+`--tools "" --strict-mcp-config` 12K).
 
 Treat "exit 0 with prose" as a possible rate-limit or login error — check the answer against the
 format your prompt demands before calling the run `ok`. Keep the prompt in its own file

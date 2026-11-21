@@ -418,7 +418,8 @@ def classify(config, mails):
                "--effort", "low", "--system-prompt", system,
                # No tools: the mails are untrusted text, and a model that can act could be steered
                # by one. Safe mode keeps hooks and plugins (claude-mem) from recording them.
-               "--tools", "", "--safe-mode", "--no-session-persistence", "--output-format", "json"]
+               "--tools", "", "--safe-mode", "--strict-mcp-config", "--no-session-persistence",
+               "--output-format", "json"]
         print("claude: account=%s model=%s mails=%d" % (account["label"], cmd[3], len(mails)))
         try:
             done = subprocess.run(cmd, input=stdin, capture_output=True, text=True,

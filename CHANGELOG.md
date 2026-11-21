@@ -13,6 +13,7 @@ update themselves to it.
 
 ### Changed
 
+- The skill tells every `claude -p` job to pass `--strict-mcp-config` (one needed server goes in alone with `--mcp-config`), and the `inbox-watch` template does: `--tools` does not cover MCP tools, so `--tools ""` without it loaded every connected MCP tool schema (186K input tokens against 12K).
 - Contributor docs: commits use the owner's global `voyvodka` git identity instead of the GitHub noreply address.
 
 ## [1.1.0] - 2026-10-16
