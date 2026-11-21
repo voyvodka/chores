@@ -412,8 +412,7 @@ def classify(config, mails):
         env.pop("CLAUDE_CONFIG_DIR", None)
         if account.get("configDir"):
             env["CLAUDE_CONFIG_DIR"] = account["configDir"]
-        # Thinking was ~85% of the cost on nine mails. The 5.5 and Fable models cannot turn it off
-        # and ignore MAX_THINKING_TOKENS=0, so low effort keeps it short; older models still honour 0.
+        # 5.5 and Fable models ignore MAX_THINKING_TOKENS=0 (thinking can't be off); --effort low keeps it short.
         env["MAX_THINKING_TOKENS"] = "0"
         cmd = [config["claude"], "-p", "--model", config.get("model", DEFAULT_MODEL),
                "--effort", "low", "--system-prompt", system,
