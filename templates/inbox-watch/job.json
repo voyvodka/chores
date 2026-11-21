@@ -33,8 +33,15 @@
   ],
   "createdBy": "claude-code",
   "createdAt": "2026-09-27T16:30:40Z",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "changelog": [
+    {
+      "version": "1.2.2",
+      "date": "2026-11-22",
+      "notes": [
+        "Claude runs with --strict-mcp-config as well, so the job stays off connected MCP servers even without --safe-mode."
+      ]
+    },
     {
       "version": "1.2.1",
       "date": "2026-11-21",
